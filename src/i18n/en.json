@@ -1,0 +1,226 @@
+{
+  "nav": {
+    "features": "Features",
+    "download": "Download",
+    "testimonials": "Testimonials",
+    "faq": "FAQ",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Your accountant in your pocket",
+    "subtitle": "Manage your finances from your phone. Track expenses, create invoices, and report to SUNAT from anywhere.",
+    "cta": "Download free",
+    "ctaSecondary": "See how it works"
+  },
+  "appPreview": {
+    "title": "See how easy it is",
+    "subtitle": "A simple and intuitive interface designed so you can control your finances in seconds",
+    "screenshots": {
+      "dashboard": "Dashboard with your metrics",
+      "expenses": "Quick expense logging",
+      "invoices": "Create invoices in seconds",
+      "reports": "Automatic SUNAT reports",
+      "camera": "Scan your receipts"
+    }
+  },
+  "features": {
+    "title": "Everything you need on your phone",
+    "items": {
+      "camera": {
+        "title": "Scan Receipts",
+        "desc": "Use your camera to capture expenses and automatically convert receipts into data."
+      },
+      "gps": {
+        "title": "Automatic Location",
+        "desc": "GPS records where you spend for precise location-based tracking."
+      },
+      "offline": {
+        "title": "Works Offline",
+        "desc": "Record operations offline. It syncs when you have connection."
+      },
+      "notifications": {
+        "title": "Smart Notifications",
+        "desc": "Get reminders for payments, filings, and deadlines on time."
+      },
+      "invoicing": {
+        "title": "Mobile Invoicing",
+        "desc": "Create and send electronic invoices directly from your phone."
+      },
+      "reports": {
+        "title": "SUNAT Reports",
+        "desc": "Generate and file your tax returns from the app."
+      }
+    }
+  },
+  "download": {
+    "title": "Take your accountant with you",
+    "subtitle": "Download the app and take control of your finances",
+    "appStore": "Download on App Store",
+    "playStore": "Get it on Play Store",
+    "free": "Free to start",
+    "noCreditCard": "No credit card required"
+  },
+  "comparison": {
+    "title": "Compare and decide",
+    "subtitle": "Forget traditional methods. The app gives you more flexibility.",
+    "traditional": "Traditional method",
+    "ourApp": "Our app",
+    "rows": {
+      "device": {
+        "label": "Device",
+        "traditional": "Laptop or desktop computer",
+        "app": "Your smartphone"
+      },
+      "location": {
+        "label": "Where to work",
+        "traditional": "At office or fixed location",
+        "app": "Anywhere"
+      },
+      "time": {
+        "label": "When to use",
+        "traditional": "Office hours",
+        "app": "24/7 whenever you want"
+      },
+      "expense": {
+        "label": "Record expense",
+        "traditional": "Write down then enter in system",
+        "app": "Photo and done in seconds"
+      },
+      "invoice": {
+        "label": "Create invoice",
+        "traditional": "Go to office, computer, software",
+        "app": "From your pocket"
+      },
+      "sunat": {
+        "label": "Report to SUNAT",
+        "traditional": "Long and manual process",
+        "app": "One tap on your phone"
+      }
+    }
+  },
+  "testimonials": {
+    "title": "What our users say",
+    "items": {
+      "1": {
+        "quote": "Now I log my expenses at the exact moment. I forgot about losing receipts.",
+        "name": "Carlos Mendoza",
+        "role": "Small business owner"
+      },
+      "2": {
+        "quote": "Being able to make invoices from my phone changed everything. I work from anywhere.",
+        "name": "Ana García",
+        "role": "Entrepreneur"
+      },
+      "3": {
+        "quote": "The camera to scan receipts is the best. It saves me hours every week.",
+        "name": "Luis Torres",
+        "role": "Financial consultant"
+      }
+    }
+  },
+  "stats": {
+    "title": "Numbers that speak",
+    "clients": "Active users",
+    "invoices": "Invoices issued",
+    "downloads": "Downloads",
+    "rating": "Store rating"
+  },
+  "partners": {
+    "title": "Companies that trust us"
+  },
+  "faq": {
+    "title": "Frequently asked questions",
+    "items": {
+      "1": {
+        "question": "Is the app free to download?",
+        "answer": "Yes, the app is free to download. You can start using it at no cost with basic features available."
+      },
+      "2": {
+        "question": "Does it work without internet?",
+        "answer": "Yes, the app works offline. Your data automatically syncs when you have connection again."
+      },
+      "3": {
+        "question": "Is it compatible with SUNAT?",
+        "answer": "Absolutely. The app is designed to comply with all SUNAT regulations for electronic invoicing."
+      },
+      "4": {
+        "question": "What if I lose my phone?",
+        "answer": "Your data is in the cloud. Just log in to your new device and it will all be there. You won't lose anything."
+      }
+    }
+  },
+  "contact": {
+    "title": "Have questions?",
+    "subtitle": "We're here to help. Contact us and we'll get back to you shortly.",
+    "form": {
+      "name": "Full name",
+      "email": "Email address",
+      "message": "Message",
+      "submit": "Send message",
+      "sending": "Sending..."
+    },
+    "info": {
+      "email": "support@yourlogo.com",
+      "phone": "+51 999 999 999",
+      "address": "Lima, Peru"
+    }
+  },
+  "benefits": {
+    "title": "Why choose us?",
+    "items": {
+      "security": {
+        "title": "Guaranteed security",
+        "desc": "Your data protected with bank-level encryption and automatic cloud backup."
+      },
+      "time": {
+        "title": "Save time",
+        "desc": "Automate expense logging. Focus on growing your business."
+      },
+      "support": {
+        "title": "Specialized support",
+        "desc": "Team of experts ready to help you when you need it."
+      },
+      "compliance": {
+        "title": "100% SUNAT compliant",
+        "desc": "Stay up to date with tax regulations without worrying."
+      }
+    }
+  },
+  "integrations": {
+    "title": "Integrates with your tools",
+    "subtitle": "Connect with the systems you already use",
+    "items": {
+      "banks": {
+        "title": "Banks",
+        "desc": "Automatic reconciliation with major banks in Peru"
+      },
+      "accounting": {
+        "title": "Accounting",
+        "desc": "Sync with accounting software"
+      },
+      "cloud": {
+        "title": "Cloud",
+        "desc": "Automatic cloud backup"
+      },
+      "email": {
+        "title": "Email",
+        "desc": "Send receipts automatically"
+      }
+    }
+  },
+  "cta": {
+    "title": "Start today",
+    "subtitle": "Download the app and take control of your finances",
+    "button": "Download free"
+  },
+  "footer": {
+    "links": {
+      "product": "Product",
+      "company": "Company",
+      "legal": "Legal",
+      "privacy": "Privacy",
+      "terms": "Terms"
+    },
+    "copyright": "© 2026. All rights reserved."
+  }
+}

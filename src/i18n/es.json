@@ -1,0 +1,226 @@
+{
+  "nav": {
+    "features": "Características",
+    "download": "Descargar",
+    "testimonials": "Testimonios",
+    "faq": "Preguntas",
+    "contact": "Contacto"
+  },
+  "hero": {
+    "title": "Tu contador en el bolsillo",
+    "subtitle": "Gestiona tus finanzas desde tu teléfono. Controla gastos, crea facturas y reporta a SUNAT dondequiera que estés.",
+    "cta": "Descargar gratis",
+    "ctaSecondary": "Ver cómo funciona"
+  },
+  "appPreview": {
+    "title": "Mira lo fácil que es",
+    "subtitle": "Una interfaz simple e intuitiva diseñada para que controles tus finanzas en segundos",
+    "screenshots": {
+      "dashboard": "Dashboard con tus métricas",
+      "expenses": "Registro rápido de gastos",
+      "invoices": "Crea facturas en segundos",
+      "reports": "Reportes SUNAT automáticos",
+      "camera": "Escanea tus recibos"
+    }
+  },
+  "features": {
+    "title": "Todo lo que necesitas en tu teléfono",
+    "items": {
+      "camera": {
+        "title": "Escanea Receipts",
+        "desc": "Usa la cámara para capturar gastos y convertir recibos en datos automáticamente."
+      },
+      "gps": {
+        "title": "Ubicación Automática",
+        "desc": " GPS registra dónde gastas para tener un control preciso por ubicación."
+      },
+      "offline": {
+        "title": "Funciona Sin Internet",
+        "desc": "Registra tus operaciones offline. Se sincroniza cuando tengas conexión."
+      },
+      "notifications": {
+        "title": "Notificaciones Inteligentes",
+        "desc": "Recibe recordatorios de pagos, declaraciones y vencimientos a tiempo."
+      },
+      "invoicing": {
+        "title": "Facturación Móvil",
+        "desc": "Crea y envía facturas electrónicas directamente desde tu teléfono."
+      },
+      "reports": {
+        "title": "Reportes SUNAT",
+        "desc": "Genera y presenta tus declaraciones tributarias desde la app."
+      }
+    }
+  },
+  "download": {
+    "title": "Lleva tu contador contigo",
+    "subtitle": "Descarga la app y toma el control de tus finanzas",
+    "appStore": "Descargar en App Store",
+    "playStore": "Descargar en Play Store",
+    "free": "Gratis para comenzar",
+    "noCreditCard": "No requiere tarjeta de crédito"
+  },
+  "comparison": {
+    "title": "Compara y decide",
+    "subtitle": "Olvida los métodos tradicionales. La app te da más flexibilidad.",
+    "traditional": "Método tradicional",
+    "ourApp": "Nuestra app",
+    "rows": {
+      "device": {
+        "label": "Dispositivo",
+        "traditional": "Laptop o computadora de escritorio",
+        "app": "Tu smartphone"
+      },
+      "location": {
+        "label": "Dónde trabajar",
+        "traditional": "En oficina o lugar fijo",
+        "app": "En cualquier lugar"
+      },
+      "time": {
+        "label": "Cuándo usarlo",
+        "traditional": "Horario de oficina",
+        "app": "24/7 cuando tú quieras"
+      },
+      "expense": {
+        "label": "Registrar gasto",
+        "traditional": "Anotar y luego pasar a sistema",
+        "app": "Foto y listo en segundos"
+      },
+      "invoice": {
+        "label": "Crear factura",
+        "traditional": "Ir a la oficina,电脑, software",
+        "app": "Desde tu bolsillo"
+      },
+      "sunat": {
+        "label": "Reportar a SUNAT",
+        "traditional": "Proceso largo y manual",
+        "app": "Un tap en tu teléfono"
+      }
+    }
+  },
+  "testimonials": {
+    "title": "Lo que dicen nuestros usuarios",
+    "items": {
+      "1": {
+        "quote": "Ahora registro mis gastos en el momento exacto. Me olvidé de perder facturas.",
+        "name": "Carlos Mendoza",
+        "role": "Pequeño empresario"
+      },
+      "2": {
+        "quote": "Poder hacer facturas desde mi teléfono cambió todo. Trabajo desde cualquier lugar.",
+        "name": "Ana García",
+        "role": "Emprendedora"
+      },
+      "3": {
+        "quote": "La cámara para escanear recibos es lo mejor. Me ahorra horas cada semana.",
+        "name": "Luis Torres",
+        "role": "Consultor financiero"
+      }
+    }
+  },
+  "stats": {
+    "title": "Números que hablan",
+    "clients": "Usuarios activos",
+    "invoices": "Facturas emitidas",
+    "downloads": "Descargas",
+    "rating": "Rating en tiendas"
+  },
+  "partners": {
+    "title": "Empresas que confían en nosotros"
+  },
+  "faq": {
+    "title": "Preguntas frecuentes",
+    "items": {
+      "1": {
+        "question": "¿Es gratis descargar la app?",
+        "answer": "Sí, la app es gratuita para descargar. Puedes comenzar a usarla sin costo y tienen funciones básicas disponibles."
+      },
+      "2": {
+        "question": "¿Funciona sin internet?",
+        "answer": "Sí, la app funciona offline. Tus datos se sincronizan automáticamente cuando vuelvas a tener conexión."
+      },
+      "3": {
+        "question": "¿Es compatible con SUNAT?",
+        "answer": "Absolutamente. La app está diseñada para cumplir con todas las normativas de SUNAT para facturación electrónica."
+      },
+      "4": {
+        "question": "¿Qué pasa si pierdo mi teléfono?",
+        "answer": "Tus datos están en la nube. Solo inicia sesión en tu nuevo dispositivo y seguirán ahí. No pierdes nada."
+      }
+    }
+  },
+  "contact": {
+    "title": "¿Tienes preguntas?",
+    "subtitle": "Estamos aquí para ayudarte. Contáctanos y te responderemos en breve.",
+    "form": {
+      "name": "Nombre completo",
+      "email": "Correo electrónico",
+      "message": "Mensaje",
+      "submit": "Enviar mensaje",
+      "sending": "Enviando..."
+    },
+    "info": {
+      "email": "soporte@tulogo.com",
+      "phone": "+51 999 999 999",
+      "address": "Lima, Perú"
+    }
+  },
+  "benefits": {
+    "title": "¿Por qué elegirnos?",
+    "items": {
+      "security": {
+        "title": "Seguridad garantizada",
+        "desc": "Tus datos protegidos con encriptación bancaria y respaldo automático en la nube."
+      },
+      "time": {
+        "title": "Ahorra tiempo",
+        "desc": "Automatiza el registro de gastos. Enfócate en hacer crecer tu negocio."
+      },
+      "support": {
+        "title": "Soporte especializado",
+        "desc": "Equipo de expertos listo para ayudarte cuando lo necesites."
+      },
+      "compliance": {
+        "title": "100% compatible con SUNAT",
+        "desc": "Mantente al día con las regulaciones tributarias sin preocuparte."
+      }
+    }
+  },
+  "integrations": {
+    "title": "Se integra con tus herramientas",
+    "subtitle": "Conecta con los sistemas que ya usas",
+    "items": {
+      "banks": {
+        "title": "Bancos",
+        "desc": "Conciliación automática con principales bancos del Perú"
+      },
+      "accounting": {
+        "title": "Contabilidad",
+        "desc": "Sincroniza con software contable"
+      },
+      "cloud": {
+        "title": "Cloud",
+        "desc": "Respaldo automático en la nube"
+      },
+      "email": {
+        "title": "Email",
+        "desc": "Envía comprobantes automáticamente"
+      }
+    }
+  },
+  "cta": {
+    "title": "Empieza hoy mismo",
+    "subtitle": "Descarga la app y toma el control de tus finanzas",
+    "button": "Descargar gratis"
+  },
+  "footer": {
+    "links": {
+      "product": "Producto",
+      "company": "Empresa",
+      "legal": "Legal",
+      "privacy": "Privacidad",
+      "terms": "Términos"
+    },
+    "copyright": "© 2026. Todos los derechos reservados."
+  }
+}
