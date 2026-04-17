@@ -6,7 +6,6 @@ export function DownloadSection() {
 
   return (
     <section id="download" className="py-20 md:py-32 bg-gradient-to-b from-[#0c1222] via-[#0a1628] to-[#0c1222] relative overflow-hidden">
-      {/* Background effects */}
       <div className="absolute inset-0">
         <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-[#0066ff]/10 rounded-full blur-[150px]" />
         <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-[#00d4ff]/10 rounded-full blur-[120px]" />
@@ -14,7 +13,6 @@ export function DownloadSection() {
 
       <div className="max-w-6xl mx-auto px-4 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left content */}
           <motion.div 
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -84,7 +82,6 @@ export function DownloadSection() {
               </button>
             </motion.div>
 
-            {/* Trust badges */}
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -107,7 +104,6 @@ export function DownloadSection() {
             </motion.div>
           </motion.div>
 
-          {/* Right - Phone mockups */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -115,7 +111,6 @@ export function DownloadSection() {
             viewport={{ once: true }}
             className="relative flex justify-center"
           >
-            {/* Main phone */}
             <div className="relative z-10">
               <div className="w-56 md:w-64 lg:w-72 aspect-[9/19] bg-gradient-to-br from-[#1a2744] to-[#0c1222] rounded-[3rem] p-3 shadow-2xl shadow-[#00d4ff]/20 border border-[#38bdf8]/20">
                 <div className="w-full h-full bg-[#0c1222] rounded-[2.5rem] overflow-hidden relative">
@@ -141,7 +136,6 @@ export function DownloadSection() {
               </div>
             </div>
 
-            {/* Floating cards */}
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}

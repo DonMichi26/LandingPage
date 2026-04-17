@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Wallet, PieChart, TrendingUp, DollarSign, CreditCard, BarChart3, Smartphone, ArrowRight } from 'lucide-react';
-import { useParallax } from '../hooks/useParallax';
+import { useParallax } from '../../hooks/useParallax';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 

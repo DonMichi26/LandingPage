@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Menu, X, Globe, Smartphone } from 'lucide-react';
-import { useSmoothScroll } from '../hooks/useSmoothScroll';
+import { useSmoothScroll } from '../../hooks/useSmoothScroll';
 
 export function Navbar() {
   const { t, i18n } = useTranslation();
