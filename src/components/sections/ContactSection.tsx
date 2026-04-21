@@ -1,118 +1,94 @@
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, MapPin, Send } from 'lucide-react';
 
 export function ContactSection() {
-  const { t } = useTranslation();
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setIsSubmitting(false);
-    setFormData({ name: '', email: '', message: '' });
-  };
-
   return (
-    <section id="contact" className="py-20 md:py-28 bg-gradient-to-b from-[#0c1222] to-[#0f2744]">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-white mb-4">
-            {t('contact.title')}
-          </h2>
-          <p className="text-[#94a3b8] text-lg max-w-2xl mx-auto">
-            {t('contact.subtitle')}
-          </p>
-        </div>
+    <section id="contact" className="py-20 md:py-28 relative">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+          <div>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6" style={{ fontFamily: 'var(--font-display)' }}>
+              <span className="text-[var(--color-text)]">Hablemos de tu</span>
+              <br />
+              <span className="text-gradient">crecimiento</span>
+            </h2>
+            <p className="text-[var(--color-text-muted)] text-lg mb-10 max-w-lg">
+              Nuestro equipo de expertos financieros está listo para ayudarte a modernizar tu gestión de gastos.
+            </p>
 
-        <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
-          <div className="space-y-8">
-            <div className="flex items-start gap-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-[#0066ff]/20 to-[#00d4ff]/20 rounded-xl flex items-center justify-center flex-shrink-0">
-                <Mail className="w-6 h-6 text-[#00d4ff]" />
+            <div className="space-y-6">
+              <div className="flex items-center gap-5 group">
+                <div className="w-14 h-14 glass-card rounded-2xl flex items-center justify-center group-hover:bg-[var(--color-accent)]/10 transition-colors">
+                  <Mail className="w-6 h-6 text-[var(--color-accent)]" />
+                </div>
+                <div>
+                  <div className="text-sm text-[var(--color-text-muted)] mb-1">Email</div>
+                  <div className="text-lg font-semibold text-[var(--color-text)]">hola@smartfinance.pe</div>
+                </div>
               </div>
-              <div>
-                <h3 className="font-semibold text-white mb-1">Email</h3>
-                <p className="text-[#94a3b8]">{t('contact.info.email')}</p>
+              <div className="flex items-center gap-5 group">
+                <div className="w-14 h-14 glass-card rounded-2xl flex items-center justify-center group-hover:bg-[var(--color-accent)]/10 transition-colors">
+                  <Phone className="w-6 h-6 text-[var(--color-accent)]" />
+                </div>
+                <div>
+                  <div className="text-sm text-[var(--color-text-muted)] mb-1">WhatsApp</div>
+                  <div className="text-lg font-semibold text-[var(--color-text)]">+51 999 888 777</div>
+                </div>
               </div>
-            </div>
-            <div className="flex items-start gap-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-[#0066ff]/20 to-[#00d4ff]/20 rounded-xl flex items-center justify-center flex-shrink-0">
-                <Phone className="w-6 h-6 text-[#00d4ff]" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-1">Teléfono</h3>
-                <p className="text-[#94a3b8]">{t('contact.info.phone')}</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-[#0066ff]/20 to-[#00d4ff]/20 rounded-xl flex items-center justify-center flex-shrink-0">
-                <MapPin className="w-6 h-6 text-[#00d4ff]" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-1">Ubicación</h3>
-                <p className="text-[#94a3b8]">{t('contact.info.address')}</p>
+              <div className="flex items-center gap-5 group">
+                <div className="w-14 h-14 glass-card rounded-2xl flex items-center justify-center group-hover:bg-[var(--color-accent)]/10 transition-colors">
+                  <MapPin className="w-6 h-6 text-[var(--color-accent)]" />
+                </div>
+                <div>
+                  <div className="text-sm text-[var(--color-text-muted)] mb-1">Oficina</div>
+                  <div className="text-lg font-semibold text-[var(--color-text)]">San Isidro, Lima</div>
+                </div>
               </div>
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium text-white mb-2">
-                {t('contact.form.name')}
-              </label>
-              <input
-                type="text"
-                id="name"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="w-full px-5 py-4 bg-[#1a2744]/50 border border-[#38bdf8]/10 rounded-xl text-white placeholder-[#94a3b8] focus:ring-2 focus:ring-[#00d4ff] focus:border-[#00d4ff] outline-none transition-colors"
-                placeholder="Tu nombre"
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-white mb-2">
-                {t('contact.form.email')}
-              </label>
-              <input
-                type="email"
-                id="email"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full px-5 py-4 bg-[#1a2744]/50 border border-[#38bdf8]/10 rounded-xl text-white placeholder-[#94a3b8] focus:ring-2 focus:ring-[#00d4ff] focus:border-[#00d4ff] outline-none transition-colors"
-                placeholder="tu@email.com"
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="message" className="block text-sm font-medium text-white mb-2">
-                {t('contact.form.message')}
-              </label>
-              <textarea
-                id="message"
-                rows={4}
-                value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className="w-full px-5 py-4 bg-[#1a2744]/50 border border-[#38bdf8]/10 rounded-xl text-white placeholder-[#94a3b8] focus:ring-2 focus:ring-[#00d4ff] focus:border-[#00d4ff] outline-none transition-colors resize-none"
-                placeholder="¿En qué podemos ayudarte?"
-                required
-              />
-            </div>
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full bg-gradient-to-r from-[#0066ff] to-[#00d4ff] hover:from-[#0052cc] hover:to-[#00b8e6] disabled:opacity-50 text-white py-4 px-6 rounded-xl font-semibold transition-all hover:shadow-lg hover:shadow-[#00d4ff]/20"
-            >
-              {isSubmitting ? t('contact.form.sending') : t('contact.form.submit')}
-            </button>
-          </form>
+          <div className="glass-card p-8 rounded-3xl">
+            <form className="space-y-5">
+              <div className="grid md:grid-cols-2 gap-5">
+                <div className="space-y-2">
+                  <label className="text-sm font-semibold text-[var(--color-text)] ml-1">Nombre</label>
+                  <input 
+                    type="text" 
+                    placeholder="Tu nombre"
+                    className="w-full px-5 py-4 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl text-[var(--color-text)] placeholder-[var(--color-text-muted)] focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)] outline-none transition-all duration-300"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-semibold text-[var(--color-text)] ml-1">Email</label>
+                  <input 
+                    type="email" 
+                    placeholder="tu@email.com"
+                    className="w-full px-5 py-4 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl text-[var(--color-text)] placeholder-[var(--color-text-muted)] focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)] outline-none transition-all duration-300"
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-semibold text-[var(--color-text)] ml-1">Asunto</label>
+                <select className="w-full px-5 py-4 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl text-[var(--color-text)] outline-none focus:ring-2 focus:ring-[var(--color-accent)] transition-all duration-300 appearance-none">
+                  <option>Soporte Técnico</option>
+                  <option>Ventas / Business</option>
+                  <option>Integración SUNAT</option>
+                  <option>Otro</option>
+                </select>
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-semibold text-[var(--color-text)] ml-1">Mensaje</label>
+                <textarea 
+                  rows={4} 
+                  placeholder="¿En qué podemos ayudarte?"
+                  className="w-full px-5 py-4 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl text-[var(--color-text)] placeholder-[var(--color-text-muted)] focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)] outline-none transition-all duration-300 resize-none"
+                ></textarea>
+              </div>
+              <button type="submit" className="btn-primary w-full justify-center !py-4">
+                Enviar Mensaje
+                <Send className="w-5 h-5" />
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </section>

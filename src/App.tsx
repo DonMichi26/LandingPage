@@ -2,8 +2,7 @@ import { ParallaxHero } from './components/ui/ParallaxHero';
 import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
 import { LoadingOverlay } from './components/layout/LoadingOverlay';
-import { ScrollReveal } from './components/ScrollReveal';
-import { FadeOnScroll } from './components/FadeOnScroll';
+import { StickyCta } from './components/StickyCta';
 import { StatsSection } from './components/sections/StatsSection';
 import { AppPreviewSection } from './components/sections/AppPreviewSection';
 import { FeaturesSection } from './components/sections/FeaturesSection';
@@ -19,56 +18,37 @@ import './i18n';
 
 function App() {
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="relative min-h-screen bg-bg-dark font-body text-text">
       <LoadingOverlay />
+      <StickyCta />
       <Navbar />
-      <main>
+      
+      <main className="relative z-10 flex flex-col">
         <ParallaxHero />
         
-        <ScrollReveal direction="up" delay={0.1}>
-          <StatsSection />
-        </ScrollReveal>
+        <div className="section-dark"><StatsSection /></div>
         
-        <ScrollReveal direction="none" delay={0.2}>
-          <AppPreviewSection />
-        </ScrollReveal>
+        <div className="section-light"><AppPreviewSection /></div>
         
-        <ScrollReveal direction="up" delay={0.15}>
-          <FeaturesSection />
-        </ScrollReveal>
+        <div className="section-dark"><FeaturesSection /></div>
         
-        <FadeOnScroll>
-          <BenefitsSection />
-        </FadeOnScroll>
+        <div className="section-light"><BenefitsSection /></div>
         
-        <ScrollReveal direction="left" delay={0.1}>
-          <ComparisonSection />
-        </ScrollReveal>
+        <div className="section-dark"><ComparisonSection /></div>
         
-        <ScrollReveal direction="right" delay={0.1}>
-          <BrandsCarouselSection />
-        </ScrollReveal>
+        <div className="section-dark radial-glow-accent"><BrandsCarouselSection /></div>
         
-        <ScrollReveal direction="up" delay={0.2}>
-          <DownloadSection />
-        </ScrollReveal>
+        <div className="section-light"><DownloadSection /></div>
         
-        <FadeOnScroll>
-          <TestimonialsSection />
-        </FadeOnScroll>
+        <div className="section-dark"><TestimonialsSection /></div>
         
-        <ScrollReveal direction="up" delay={0.1}>
-          <FaqSection />
-        </ScrollReveal>
+        <div className="section-light"><FaqSection /></div>
         
-        <ScrollReveal direction="up" delay={0.15}>
-          <ContactSection />
-        </ScrollReveal>
+        <div className="section-dark"><ContactSection /></div>
         
-        <ScrollReveal direction="up" delay={0.1}>
-          <CtaSection />
-        </ScrollReveal>
+        <CtaSection />
       </main>
+      
       <Footer />
     </div>
   );
