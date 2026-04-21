@@ -5,22 +5,41 @@ export function ParallaxHero() {
   const { t } = useTranslation();
 
   return (
-    <section id="hero" className="relative min-h-[750px] md:min-h-[850px] flex items-center overflow-hidden bg-[#050505]">
-      {/* Radial gradient background */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute top-0 left-0 w-full h-full" 
-             style={{ background: 'radial-gradient(circle at 20% 20%, var(--color-primary) 0%, transparent 40%), radial-gradient(circle at 80% 80%, var(--color-accent) 0%, transparent 40%)' }} 
+    <section id="hero" className="relative min-h-screen flex items-center overflow-hidden bg-[#050505]">
+      {/* Radial gradient background with glowing orbs */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        {/* Large orb - top right */}
+        <div className="absolute -top-20 -right-20 w-[500px] h-[500px] rounded-full" 
+             style={{ background: 'radial-gradient(circle, var(--color-primary) 0%, transparent 70%)', filter: 'blur(80px)', opacity: 0.4 }} 
         />
-        <div className="absolute inset-0 bg-[#050505]/80" />
+        {/* Medium orb - top left */}
+        <div className="absolute -top-10 -left-32 w-[400px] h-[400px] rounded-full" 
+             style={{ background: 'radial-gradient(circle, var(--color-accent) 0%, transparent 70%)', filter: 'blur(60px)', opacity: 0.35 }} 
+        />
+        {/* Small orb - center right */}
+        <div className="absolute top-1/3 right-10 w-[250px] h-[250px] rounded-full" 
+             style={{ background: 'radial-gradient(circle, var(--color-primary) 0%, transparent 70%)', filter: 'blur(50px)', opacity: 0.3 }} 
+        />
+        {/* Medium orb - bottom left */}
+        <div className="absolute bottom-20 -left-20 w-[350px] h-[350px] rounded-full" 
+             style={{ background: 'radial-gradient(circle, var(--color-accent) 0%, transparent 70%)', filter: 'blur(70px)', opacity: 0.25 }} 
+        />
+        {/* Tiny orb - bottom right */}
+        <div className="absolute -bottom-10 right-1/4 w-[200px] h-[200px] rounded-full" 
+             style={{ background: 'radial-gradient(circle, var(--color-primary) 0%, transparent 70%)', filter: 'blur(40px)', opacity: 0.2 }} 
+        />
+        {/* Subtle overlay */}
+        <div className="absolute inset-0 bg-[#050505]/60" />
+        {/* Grid pattern */}
         <div className="absolute inset-0 opacity-[0.03]" 
           style={{ backgroundImage: 'radial-gradient(var(--color-accent) 1px, transparent 1px)', backgroundSize: '32px 32px' }} 
         />
       </div>
 
-      <div className="relative z-10 w-full pt-28 pb-16 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <div className="text-center lg:text-left order-2 lg:order-1">
+      <div className="relative z-10 w-full h-full px-6">
+        <div className="max-w-7xl mx-auto h-full flex items-center py-20">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <div className="text-center lg:text-left">
               <div className="inline-flex items-center gap-2.5 px-4 py-2 card-dark rounded-full mb-8">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-accent)] opacity-75"></span>
@@ -78,10 +97,10 @@ export function ParallaxHero() {
               </div>
             </div>
             
-            <div className="relative flex justify-center lg:justify-end order-1 lg:order-2">
+            <div className="relative flex justify-center lg:justify-end">
               <div className="relative">
                 <div className="absolute inset-0 bg-[var(--color-accent)]/20 blur-[80px] rounded-full" />
-                <div className="relative z-10 w-64 md:w-72 lg:w-80 aspect-[9/19] rounded-[3rem] p-3" 
+                <div className="relative z-10 w-72 md:w-80 lg:w-96 aspect-[9/19] rounded-[3rem] p-3" 
                      style={{ boxShadow: '0 0 80px -20px var(--color-accent)/30' }}>
                   <div className="w-full h-full bg-[#0a0a0a] rounded-[2.5rem] overflow-hidden border border-[var(--color-border)]">
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-7 bg-[#0a0a0a] rounded-b-2xl z-30" />

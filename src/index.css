@@ -26,7 +26,7 @@ html, body {
   padding: 0;
   width: 100%;
   min-height: 100%;
-  background-color: var(--color-background);
+  background: linear-gradient(180deg, #000000 0%, #001020 50%, #001f3f 100%);
   color: var(--color-text);
   font-family: var(--font-body);
   scroll-behavior: smooth;
@@ -38,9 +38,9 @@ section {
   min-height: fit-content;
 }
 
-/* Alternating sections */
+/* Alternating sections - Dark gradient premium */
 .section-dark {
-  background-color: var(--color-bg-dark);
+  background: linear-gradient(180deg, #000000 0%, #001020 50%, #001f3f 100%);
 }
 
 .section-light {
