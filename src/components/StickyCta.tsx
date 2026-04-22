@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Download, X } from 'lucide-react';
+import { SCROLL_THRESHOLDS } from '../utils/constants';
 
 export function StickyCta() {
   const { t } = useTranslation();
@@ -10,7 +11,7 @@ export function StickyCta() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      if (scrollY > 500 && !isDismissed) {
+      if (scrollY > SCROLL_THRESHOLDS.stickyCtaVisible && !isDismissed) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
