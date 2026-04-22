@@ -34,7 +34,7 @@ export function Navbar() {
     <nav 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled 
-          ? 'glass py-3' 
+          ? 'py-3 shadow-lg bg-[radial-gradient(ellipse_at_center,_oklch(15%_0.01_250)_0%,_oklch(5%_0.01_250)_100%)]' 
           : 'bg-transparent py-6'
       } ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}
     >
