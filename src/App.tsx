@@ -18,12 +18,18 @@ import './i18n';
 
 function App() {
   return (
-    <div className="relative min-h-screen bg-bg-dark font-body text-text">
+    <div className="relative min-h-screen bg-bg-dark font-body text-text overflow-x-hidden">
+      <a 
+        href="#main-content" 
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-[var(--color-primary)] focus:text-white focus:rounded-lg focus:font-medium"
+      >
+        Saltar al contenido principal
+      </a>
       <LoadingOverlay />
       <StickyCta />
       <Navbar />
       
-      <main className="relative z-10 flex flex-col">
+      <main id="main-content" className="relative z-10 flex flex-col overflow-x-hidden" tabIndex={-1}>
         <ParallaxHero />
         
         <div className="section-dark"><StatsSection /></div>

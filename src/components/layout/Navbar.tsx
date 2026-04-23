@@ -1,129 +1,222 @@
-import { useState } from 'react';
+/**
+ * Navbar.tsx
+ * ==========
+ * Navbar minimalista con branding distintivo.
+ * Diseño limpio con scroll-aware y acceso rápido a navegación.
+ * 
+ * @features
+ * - Scroll-aware: Transparente → Blur al scrollear
+ * - Idioma rápido: Toggle ES/EN
+ * - Menú móvil: Animado y accesible
+ * - Focus states: Keyboard navigation completa
+ */
+
+import { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Menu, X, Globe, Smartphone } from 'lucide-react';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { useSmoothScroll } from '../../hooks/useSmoothScroll';
 import { useScrollBehavior } from '../../hooks/useScrollBehavior';
 
+// =============================================================================
+// CONSTANTES
+// =============================================================================
+const navItems = [
+  { key: 'features', href: '#features' },
+  { key: 'download', href: '#download' },
+  { key: 'testimonials', href: '#testimonials' },
+  { key: 'faq', href: '#faq' },
+  { key: 'contact', href: '#contact' },
+];
+
+// =============================================================================
+// COMPONENTE PRINCIPAL
+// =============================================================================
 export function Navbar() {
   const { t, i18n } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
   const { scrollToSection } = useSmoothScroll();
   const { isScrolled, isVisible } = useScrollBehavior({ hideAfterHero: true });
+  const langDropdownRef = useRef<HTMLDivElement>(null);
+  const shouldReduceMotion = useReducedMotion();
 
+  // -------------------------------------------------------------------------
+  // EFECTO: Click outside para cerrar dropdown de idioma
+  // -------------------------------------------------------------------------
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (langDropdownRef.current && !langDropdownRef.current.contains(event.target as Node)) {
+        setIsLangOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // -------------------------------------------------------------------------
+  // HELPERS
+  // -------------------------------------------------------------------------
   const toggleLanguage = () => {
     const newLang = i18n.language === 'es' ? 'en' : 'es';
     i18n.changeLanguage(newLang);
     setIsLangOpen(false);
   };
 
-  const navItems = [
-    { key: 'features', href: '#features' },
-    { key: 'download', href: '#download' },
-    { key: 'testimonials', href: '#testimonials' },
-    { key: 'faq', href: '#faq' },
-    { key: 'contact', href: '#contact' },
-  ];
-
   const handleNavClick = (href: string) => {
     scrollToSection(href);
     setIsMenuOpen(false);
   };
 
-  return (
-    <nav 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled 
-          ? 'py-3 shadow-lg bg-[radial-gradient(ellipse_at_center,_oklch(15%_0.01_250)_0%,_oklch(5%_0.01_250)_100%)]' 
-          : 'bg-transparent py-6'
-      } ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}
-    >
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex-shrink-0 flex items-center gap-3 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-primary)] flex items-center justify-center shadow-lg">
-              <Smartphone className="w-5 h-5 text-[var(--color-background)]" />
-            </div>
-            <span className="text-xl font-bold tracking-tight" style={{ fontFamily: 'var(--font-display)' }}>
-              <span className="text-[var(--color-text)]">Smart</span> <span className="text-[var(--color-accent)]">Finance</span>
-            </span>
-          </div>
+  const navTransition = shouldReduceMotion 
+    ? { duration: 0 } 
+    : { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] as const };
 
-          <div className="hidden lg:flex items-center gap-8">
+  // -------------------------------------------------------------------------
+  // RENDER
+  // -------------------------------------------------------------------------
+  return (
+    <motion.nav
+      initial={false}
+      animate={{ 
+        y: isVisible ? 0 : -100,
+        backgroundColor: isScrolled 
+          ? 'oklch(15% 0.01 250 / 0.9)' 
+          : 'oklch(5% 0.01 250 / 0)',
+        backdropFilter: isScrolled ? 'blur(12px)' : 'blur(0px)'
+      }}
+      transition={navTransition}
+      className={`fixed top-0 left-0 right-0 z-50 ${isScrolled ? 'shadow-lg shadow-black/20' : ''}`}
+    >
+      <div className="max-w-7xl mx-auto px-4 lg:px-6">
+        <div className="flex items-center justify-between h-14 lg:h-16">
+          
+          {/* Logo */}
+          <motion.button
+            className="flex items-center gap-2"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-primary)] flex items-center justify-center">
+              <Smartphone className="w-4 h-4 text-[var(--color-background)]" />
+            </div>
+            <span className="text-base font-bold">
+              <span className="text-[var(--color-text)]">Smart</span>
+              <span className="text-[var(--color-accent)]">Finance</span>
+            </span>
+          </motion.button>
+
+          {/* Nav Desktop */}
+          <div className="hidden lg:flex items-center gap-6">
             {navItems.map((item) => (
               <button
                 key={item.key}
                 onClick={() => handleNavClick(item.href)}
-                className="text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors font-medium text-sm tracking-wide relative group"
+                className="text-xs font-medium text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors relative group"
+                aria-label={t(`nav.${item.key}`)}
               >
                 {t(`nav.${item.key}`)}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[var(--color-accent)] transition-all duration-300 group-hover:w-full" />
+                <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-[var(--color-accent)] origin-left scale-x-0 group-hover:scale-x-100 transition-transform" />
               </button>
             ))}
           </div>
 
-          <div className="hidden lg:flex items-center gap-4">
-            <div className="relative">
+          {/* Acciones Desktop */}
+          <div className="hidden lg:flex items-center gap-3">
+            {/* Selector de idioma */}
+            <div className="relative" ref={langDropdownRef}>
               <button
                 onClick={() => setIsLangOpen(!isLangOpen)}
-                className="flex items-center gap-1.5 text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors px-3 py-2 rounded-lg hover:bg-[var(--color-surface)]"
+                className="flex items-center gap-1.5 text-xs font-medium text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors px-2 py-1.5 rounded hover:bg-[var(--color-surface)]"
+                aria-label={isLangOpen ? 'Cerrar selector de idioma' : 'Abrir selector de idioma'}
+                aria-expanded={isLangOpen}
               >
-                <Globe className="w-4 h-4" />
-                <span className="uppercase font-semibold text-xs">{i18n.language}</span>
+                <Globe className="w-3.5 h-3.5" />
+                <span>{i18n.language.toUpperCase()}</span>
               </button>
-              {isLangOpen && (
-                <div className="absolute right-0 mt-2 w-20 glass-card rounded-xl py-1 overflow-hidden">
-                  <button
-                    onClick={toggleLanguage}
-                    className="block w-full text-left px-4 py-2.5 text-[var(--color-text-muted)] hover:text-[var(--color-accent)] hover:bg-[var(--color-surface)] transition-colors text-sm"
+              <AnimatePresence>
+                {isLangOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -4, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -4, scale: 0.95 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute right-0 mt-1 w-16 rounded-lg bg-[var(--color-surface)] border border-[var(--color-border)] overflow-hidden"
                   >
-                    {i18n.language === 'es' ? 'EN' : 'ES'}
-                  </button>
-                </div>
-              )}
+                    <button
+                      onClick={toggleLanguage}
+                      className="w-full text-xs text-center py-2 text-[var(--color-text-muted)] hover:text-[var(--color-accent)] hover:bg-[var(--color-surface-elevated)] transition-colors"
+                    >
+                      {i18n.language === 'es' ? 'EN' : 'ES'}
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
-            <button className="btn-primary !py-2.5 !px-5 !text-sm">
+
+            {/* CTA */}
+            <button className="px-4 py-2 rounded-lg bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] text-xs font-semibold text-[var(--color-background)] hover:opacity-90 transition-opacity">
               {t('hero.cta')}
             </button>
           </div>
 
-          <div className="lg:hidden flex items-center gap-2">
+          {/* Nav Mobile */}
+          <div className="lg:hidden flex items-center gap-1">
             <button
               onClick={toggleLanguage}
-              className="text-[var(--color-text-muted)] p-2.5 rounded-lg hover:bg-[var(--color-surface)] transition-colors"
+              className="text-xs font-medium text-[var(--color-text-muted)] px-2 py-1.5 rounded hover:bg-[var(--color-surface)] transition-colors"
+              aria-label="Cambiar idioma"
             >
-              <Globe className="w-5 h-5" />
+              {i18n.language.toUpperCase()}
             </button>
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-[var(--color-text-muted)] p-2.5 rounded-lg hover:bg-[var(--color-surface)] transition-colors"
+              className="w-10 h-10 flex items-center justify-center text-[var(--color-text-muted)] rounded-lg hover:bg-[var(--color-surface)] transition-colors"
+              aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
+              aria-expanded={isMenuOpen}
             >
-              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
       </div>
 
-      {isMenuOpen && (
-        <div className="lg:hidden glass border-t border-[var(--color-border)]">
-          <div className="px-6 py-5 space-y-2">
-            {navItems.map((item) => (
-              <button
-                key={item.key}
-                onClick={() => handleNavClick(item.href)}
-                className="block w-full text-left text-[var(--color-text-muted)] hover:text-[var(--color-accent)] font-medium py-3 px-4 rounded-lg hover:bg-[var(--color-surface)] transition-colors"
+      {/* Menú móvil */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
+            className="lg:hidden bg-[var(--color-surface)]/95 border-t border-[var(--color-border)]"
+          >
+            <div className="px-4 py-4 space-y-1">
+              {navItems.map((item, i) => (
+                <motion.button
+                  key={item.key}
+                  initial={{ opacity: 0, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.05 }}
+                  onClick={() => handleNavClick(item.href)}
+                  className="block w-full text-left text-sm font-medium text-[var(--color-text-muted)] hover:text-[var(--color-accent)] py-2.5 px-3 rounded-lg hover:bg-[var(--color-surface-elevated)] transition-colors"
+                >
+                  {t(`nav.${item.key}`)}
+                </motion.button>
+              ))}
+              <motion.button
+                initial={{ opacity: 0, x: -8 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: navItems.length * 0.05 }}
+                className="w-full mt-2 px-4 py-2.5 rounded-lg bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] text-sm font-semibold text-[var(--color-background)] text-center"
               >
-                {t(`nav.${item.key}`)}
-              </button>
-            ))}
-            <div className="pt-3">
-              <button className="w-full btn-primary">
                 {t('hero.cta')}
-              </button>
+              </motion.button>
             </div>
-          </div>
-        </div>
-      )}
-    </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.nav>
   );
 }

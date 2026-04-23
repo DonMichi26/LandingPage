@@ -15,30 +15,34 @@ interface FaqItemProps {
   question: string;
   answer: string;
   icon: React.ElementType;
+  index: number;
 }
 
-function FaqCard({ question, answer, icon: Icon }: FaqItemProps) {
+function FaqCard({ question, answer, icon: Icon, index }: FaqItemProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const contentId = `faq-answer-${index}`;
 
   return (
     <div 
       className={`relative overflow-hidden rounded-2xl transition-all duration-300 ${
         isOpen 
-          ? 'bg-gradient-to-br from-[#0066ff] to-[#00d4ff]' 
-          : 'bg-white border border-[#e2e8f0] hover:border-[#00d4ff]/50 hover:shadow-lg hover:shadow-[#00d4ff]/10'
+          ? 'bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-accent)]' 
+          : 'bg-white border border-[var(--color-border-light)] hover:border-[var(--color-accent)]/50 hover:shadow-xl hover:shadow-[var(--color-accent)]/15'
       }`}
     >
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-full flex items-start gap-4 p-6 text-left"
+        aria-expanded={isOpen}
+        aria-controls={contentId}
       >
         <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors ${
-          isOpen ? 'bg-white/20' : 'bg-[#f1f5f9]'
+          isOpen ? 'bg-white/20' : 'bg-[var(--color-bg-light)]'
         }`}>
-          <Icon className={`w-6 h-6 ${isOpen ? 'text-white' : 'text-[#0066ff]'}`} />
+          <Icon className={`w-6 h-6 ${isOpen ? 'text-white' : 'text-[var(--color-primary)]'}`} />
         </div>
         <div className="flex-1 pr-4">
-          <h3 className={`font-semibold text-lg ${isOpen ? 'text-white' : 'text-[#0c1222]'}`}>
+          <h3 className={`font-semibold text-lg ${isOpen ? 'text-white' : 'text-[var(--color-text-dark)]'}`}>
             {question}
           </h3>
           {isOpen && (
@@ -50,7 +54,7 @@ function FaqCard({ question, answer, icon: Icon }: FaqItemProps) {
         <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 transition-all ${
           isOpen 
             ? 'bg-white/20 text-white' 
-            : 'bg-[#f1f5f9] text-[#94a3b8]'
+            : 'bg-[var(--color-bg-light)] text-[var(--color-text-secondary)]'
         }`}>
           <svg 
             className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} 
@@ -70,13 +74,13 @@ export function FaqSection() {
   const { t } = useTranslation();
 
   return (
-    <section id="faq" className="py-20 md:py-28 bg-gradient-to-br from-[#0c1222] via-[#0f2744] to-[#0c1222]">
+    <section id="faq" className="py-20 md:py-28 bg-gradient-to-br from-[var(--color-text-dark)] via-[var(--color-surface)] to-[var(--color-text-dark)]">
       <div className="max-w-4xl mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-white mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4" style={{ fontFamily: 'var(--font-display)' }}>
             {t('faq.title')}
           </h2>
-          <p className="text-[#94a3b8] text-lg">
+          <p className="text-[var(--color-text-muted)] text-lg">
             Todo lo que necesitas saber
           </p>
         </div>
@@ -85,6 +89,7 @@ export function FaqSection() {
           {faqKeys.map((key, index) => (
             <FaqCard
               key={key}
+              index={index}
               icon={faqIcons[index]}
               question={t(`faq.items.${key}.question`)}
               answer={t(`faq.items.${key}.answer`)}
@@ -93,9 +98,9 @@ export function FaqSection() {
         </div>
 
         <div className="mt-12 text-center">
-          <p className="text-[#94a3b8]">
+          <p className="text-[var(--color-text-muted)]">
             ¿Aún tienes dudas?{' '}
-            <a href="#contact" className="text-[#00d4ff] hover:underline font-medium">
+            <a href="#contact" className="text-[var(--color-accent)] hover:underline font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 rounded-sm">
               Contáctanos
             </a>
           </p>
