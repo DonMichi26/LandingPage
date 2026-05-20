@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Quote } from 'lucide-react';
 import { useParticles } from '../../hooks/useParticles';
@@ -40,14 +40,9 @@ function AvatarInitial({ name, id }: { name: string; id: number }) {
 
 export function TestimonialsSection() {
   const { t } = useTranslation();
-  const [mounted, setMounted] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const particles = useParticles(30, { minOpacity: 0.1, maxOpacity: 0.4, minSize: 1, maxSize: 3 });
   const mousePos = useMousePosition(sectionRef);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const testimonials: TestimonialItem[] = [
     { id: 1, name: t('testimonials.items.1.name'), role: t('testimonials.items.1.role'), quote: t('testimonials.items.1.quote') },
@@ -73,12 +68,10 @@ export function TestimonialsSection() {
 
       <div className="max-w-7xl mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
-          <h2
-            className={`text-3xl md:text-4xl lg:text-5xl font-bold font-display text-[var(--color-text-dark)] mb-4 transition-all duration-700 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
-          >
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-display text-[var(--color-text-dark)] mb-4 animate-fade-in-up">
             {t('testimonials.title')}
           </h2>
-          <p className={`text-[var(--color-text-secondary)] transition-all duration-700 delay-100 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+          <p className="text-[var(--color-text-secondary)] animate-fade-in-up" style={{ animationDelay: '100ms' }}>
             {t('testimonials.subtitle')}
           </p>
         </div>
@@ -87,8 +80,8 @@ export function TestimonialsSection() {
           {testimonials.map((item, index) => (
             <div
               key={item.id}
-              className={`group relative bg-white rounded-3xl border border-[var(--color-border-light)] hover:border-[var(--color-accent)]/40 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-[var(--color-accent)]/10 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-              style={{ transitionDelay: mounted ? `${index * 150}ms` : '0ms' }}
+              className="group relative bg-white rounded-3xl border border-[var(--color-border-light)] hover:border-[var(--color-accent)]/40 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-[var(--color-accent)]/10 animate-fade-in-up"
+              style={{ animationDelay: `${index * 150}ms` }}
             >
               <div className="absolute -top-4 left-6 w-10 h-10 bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-accent)] rounded-2xl flex items-center justify-center shadow-lg">
                 <Quote className="w-5 h-5 text-white" />

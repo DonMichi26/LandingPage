@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useState } from 'react';
 
 export interface Particle {
   id: number;
@@ -19,7 +19,7 @@ interface ParticleOptions {
   maxOpacity?: number;
 }
 
-export function useParticles(count: number, options: ParticleOptions = {}): Particle[] {
+function generateParticles(count: number, options: ParticleOptions): Particle[] {
   const {
     minSize = 1,
     maxSize = 4,
@@ -29,19 +29,22 @@ export function useParticles(count: number, options: ParticleOptions = {}): Part
     maxOpacity = 0.5,
   } = options;
 
-  return useMemo(() => {
-    const particles: Particle[] = [];
-    for (let i = 0; i < count; i++) {
-      particles.push({
-        id: i,
-        x: Math.random() * 100,
-        y: Math.random() * 100,
-        size: Math.random() * (maxSize - minSize) + minSize,
-        duration: Math.random() * (maxDuration - minDuration) + minDuration,
-        delay: Math.random() * 4,
-        opacity: Math.random() * (maxOpacity - minOpacity) + minOpacity,
-      });
-    }
-    return particles;
-  }, [count, minSize, maxSize, minDuration, maxDuration, minOpacity, maxOpacity]);
+  const particles: Particle[] = [];
+  for (let i = 0; i < count; i++) {
+    particles.push({
+      id: i,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      size: Math.random() * (maxSize - minSize) + minSize,
+      duration: Math.random() * (maxDuration - minDuration) + minDuration,
+      delay: Math.random() * 4,
+      opacity: Math.random() * (maxOpacity - minOpacity) + minOpacity,
+    });
+  }
+  return particles;
+}
+
+export function useParticles(count: number, options: ParticleOptions = {}): Particle[] {
+  const [particles] = useState(() => generateParticles(count, options));
+  return particles;
 }

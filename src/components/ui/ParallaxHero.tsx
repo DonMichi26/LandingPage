@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Smartphone, ArrowRight, Play, Users, FileText, Globe, Award } from 'lucide-react';
-import { useEffect, useState, useRef } from 'react';
+import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useParticles } from '../../hooks/useParticles';
 import { useMousePosition } from '../../hooks/useMousePosition';
@@ -11,15 +11,10 @@ import { useSmoothScroll } from '../../hooks/useSmoothScroll';
 
 export function ParallaxHero() {
   const { t } = useTranslation();
-  const [mounted, setMounted] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const particles = useParticles(20, { minOpacity: 0.2, maxOpacity: 0.6, minSize: 2, maxSize: 4, minDuration: 12, maxDuration: 20 });
   const mousePos = useMousePosition(sectionRef);
   const { scrollToSection } = useSmoothScroll();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const stats = [
     { icon: Users, value: '+100K', label: t('stats.clients', 'Usuarios activos') },
@@ -51,8 +46,8 @@ export function ParallaxHero() {
         <div className="max-w-7xl mx-auto h-full flex items-center py-20">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div className="text-center lg:text-left">
-              <div className={`inline-flex items-center gap-2.5 px-4 py-2 card-dark rounded-full mb-8 transition-all duration-500 ease-out ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
-                   style={{ transitionDelay: mounted ? '100ms' : '0ms' }}>
+              <div className="inline-flex items-center gap-2.5 px-4 py-2 card-dark rounded-full mb-8 animate-fade-in-up"
+                   style={{ animationDelay: '100ms' }}>
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-accent)] opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--color-accent)]"></span>
@@ -62,21 +57,21 @@ export function ParallaxHero() {
                 </span>
               </div>
 
-              <h1 className={`text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.05] font-display mb-6 transition-all duration-500 ease-out ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
-                  style={{ transitionDelay: mounted ? '200ms' : '0ms' }}>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.05] font-display mb-6 animate-fade-in-up"
+                   style={{ animationDelay: '200ms' }}>
                 <span className="block text-white">{t('hero.brandPrefix')}</span>
                 <span className="text-[var(--color-accent)]">
                   Smart Finance
                 </span>
               </h1>
 
-              <p className={`text-lg md:text-xl text-white/60 max-w-lg mx-auto lg:mx-0 mb-10 leading-relaxed transition-all duration-500 ease-out ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
-                 style={{ transitionDelay: mounted ? '300ms' : '0ms' }}>
+              <p className="text-lg md:text-xl text-white/60 max-w-lg mx-auto lg:mx-0 mb-10 leading-relaxed animate-fade-in-up"
+                   style={{ animationDelay: '300ms' }}>
                 {t('hero.subtitle')}
               </p>
 
-              <div className={`flex flex-col sm:flex-row gap-4 justify-center lg:justify-start transition-all duration-500 ease-out ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
-                   style={{ transitionDelay: mounted ? '400ms' : '0ms' }}>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-in-up"
+                   style={{ animationDelay: '400ms' }}>
                 <button
                   onClick={() => scrollToSection('#download')}
                   className="group inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] text-sm font-semibold text-[var(--color-background)] hover:shadow-2xl hover:scale-105 transition-all"
