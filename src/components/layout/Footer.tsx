@@ -106,7 +106,7 @@ export function Footer() {
                 <a
                   key={id}
                   href={href}
-                  aria-label={t(`footer.social.${id}`, id)}
+                   aria-label={t(`footer.social.${id}`, `Seguir en ${id.charAt(0).toUpperCase() + id.slice(1)}`)}
                   className="w-7 h-7 rounded-lg bg-[var(--color-surface)] flex items-center justify-center text-[var(--color-text-muted)] hover:bg-[var(--color-accent)] hover:text-[var(--color-background)] transition-all"
                 >
                   <SocialIcon type={id as 'twitter' | 'linkedin' | 'instagram' | 'youtube'} />

@@ -113,7 +113,7 @@ export function Navbar() {
                 key={item.key}
                 onClick={() => handleNavClick(item.href)}
                 className="text-xs font-medium text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors relative group"
-                aria-label={t(`nav.${item.key}`)}
+                aria-label={`Ir a ${t(`nav.${item.key}`)}`}
               >
                 {t(`nav.${item.key}`)}
                 <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-[var(--color-accent)] origin-left scale-x-0 group-hover:scale-x-100 transition-transform" />

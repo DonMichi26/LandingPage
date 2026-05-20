@@ -65,6 +65,11 @@ export function LoadingOverlay() {
     <AnimatePresence>
       {isLoading && (
         <motion.div
+          role="progressbar"
+          aria-valuenow={Math.round(progress)}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-label="Cargando aplicación"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, scale: 1.02 }}
           transition={{ duration: 0.4, ease: 'easeOut' }}

@@ -175,7 +175,7 @@ export function SupportSection() {
       </div>
 
       {/* Contact Section */}
-      <div className="py-16 md:py-20 lg:py-24 px-[1%]">
+      <div className="py-20 md:py-28 px-[1%]">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-6 gap-4 lg:gap-6 items-stretch" style={{ minHeight: '500px' }}>
             
@@ -183,6 +183,7 @@ export function SupportSection() {
               <img 
                 src="/Asesor.png" 
                 alt="Asesor Smart Finance"
+                loading="lazy"
                 className="w-full h-full object-cover object-top"
                 style={{ minHeight: '400px' }}
                 onError={(e) => {
@@ -288,7 +289,7 @@ export function SupportSection() {
       </div>
 
       {/* CTA Section */}
-      <div className="py-12 md:py-16 lg:py-20 px-[1%] pb-20">
+      <div className="py-16 md:py-20 px-[1%]">
         <div className="max-w-5xl mx-auto rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-br from-[var(--color-surface)] via-[var(--color-surface-elevated)] to-[var(--color-surface)]">
           <div className="relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-surface)] via-[var(--color-surface-elevated)] to-[var(--color-surface)]" />
