@@ -59,7 +59,7 @@ function App() {
         <div className="section-light"><DownloadSection /></div>
         {/* Sección de descarga de la aplicación */}
         
-        <div className="section-dark"><TestimonialsSection /></div>
+        <div className="section-light"><TestimonialsSection /></div>
         {/* Sección de testimonios de usuarios */}
         
         <div className="section-dark"><SupportSection /></div>

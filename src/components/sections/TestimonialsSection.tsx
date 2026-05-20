@@ -162,7 +162,7 @@ export function TestimonialsSection() {
             {t('testimonials.title')}
           </h2>
           <p className={`text-[var(--color-text-secondary)] transition-all duration-700 delay-100 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-            Lo que dicen nuestros usuarios
+            {t('testimonials.subtitle')}
           </p>
         </div>
 

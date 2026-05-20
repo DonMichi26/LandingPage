@@ -23,10 +23,23 @@
       "invoices": "Crea facturas en segundos",
       "reports": "Reportes SUNAT automáticos",
       "camera": "Escanea tus recibos"
+    },
+    "items": {
+      "metrics": "Métricas en tiempo real",
+      "security": "Seguridad",
+      "encryption": "AES-256",
+      "budget": "Presupuesto",
+      "goals": "Metas",
+      "analytics": "Analíticas",
+      "transfers": "Transferencias",
+      "savings": "Ahorros",
+      "mobileApp": "App Móvil",
+      "bankWithYou": "Lleva tu banco contigo"
     }
   },
   "features": {
     "title": "Todo lo que necesitas en tu teléfono",
+    "subtitle": "Todo lo que necesitas para gestionar tus finanzas en un solo lugar.",
     "items": {
       "camera": {
         "title": "Escanea Receipts",
@@ -115,6 +128,7 @@
   },
   "testimonials": {
     "title": "Lo que dicen nuestros usuarios",
+    "subtitle": "Historias reales de quienes ya transformaron sus finanzas",
     "items": {
       "1": {
         "quote": "Ahora registro mis gastos en el momento exacto. Me olvidé de perder facturas.",
@@ -164,22 +178,6 @@
       }
     }
   },
-  "contact": {
-    "title": "¿Tienes preguntas?",
-    "subtitle": "Estamos aquí para ayudarte. Contáctanos y te responderemos en breve.",
-    "form": {
-      "name": "Nombre completo",
-      "email": "Correo electrónico",
-      "message": "Mensaje",
-      "submit": "Enviar mensaje",
-      "sending": "Enviando..."
-    },
-    "info": {
-      "email": "soporte@tulogo.com",
-      "phone": "+51 999 999 999",
-      "address": "Lima, Perú"
-    }
-  },
   "benefits": {
     "title": "¿Por qué elegirnos?",
     "items": {
@@ -226,9 +224,38 @@
   "cta": {
     "title": "Empieza hoy mismo",
     "subtitle": "Descarga la app y toma el control de tus finanzas",
-    "button": "Descargar gratis"
+    "button": "Descargar gratis",
+    "badge": "Nueva versión",
+    "heading": "¿Listo para transformar",
+    "headingSuffix": "tus finanzas?",
+    "users": "Únete a +100K usuarios que ya disfrutan de la mejor experiencia en gestión financiera.",
+    "demo": "Ver demo"
+  },
+  "support": {
+    "title": "Tu opinión",
+    "titleSuffix": "nos importa",
+    "subtitle": "Ayúdanos a mejorar. Envíanos tus sugerencias, reporta errores o cuéntanos cómo podemos ayudarte mejor a transformar tus finanzas.",
+    "form": {
+      "name": "Tu nombre",
+      "email": "Tu email",
+      "message": "Escribe tu mensaje...",
+      "submit": "Enviar mensaje",
+      "sending": "Enviando...",
+      "sent": "Mensaje enviado correctamente",
+      "error": "Error al enviar. Intenta de nuevo."
+    }
   },
   "footer": {
+    "description": "Banca digital en Perú.",
+    "contact": "Contacto",
+    "email": "hola@smartfinance.pe",
+    "phone": "+51 999 888 777",
+    "social": "Síguenos",
+    "license": "LICENCIA DE USO PERSONAL",
+    "licenseDesc": "Uso exclusivamente personal. Prohibida distribución sin autorización.",
+    "licenseTag": "Solo uso personal",
+    "brand": "Smart Finance.",
+    "tagline": "Gestión financiera Perú con SUNAT.",
     "links": {
       "product": "Producto",
       "company": "Empresa",

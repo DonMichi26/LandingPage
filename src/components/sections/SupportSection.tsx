@@ -87,10 +87,10 @@ export function SupportSection() {
 
   const validateForm = () => {
     const errors: Record<string, string> = {};
-    if (!formData.name.trim()) errors.name = 'El nombre es requerido';
-    if (!formData.email.trim()) errors.email = 'El email es requerido';
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) errors.email = 'Email inválido';
-    if (!formData.message.trim()) errors.message = 'El mensaje es requerido';
+    if (!formData.name.trim()) errors.name = t('support.form.nameRequired', 'El nombre es requerido');
+    if (!formData.email.trim()) errors.email = t('support.form.emailRequired', 'El email es requerido');
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) errors.email = t('support.form.emailInvalid', 'Email inválido');
+    if (!formData.message.trim()) errors.message = t('support.form.messageRequired', 'El mensaje es requerido');
     return errors;
   };
 
@@ -305,12 +305,12 @@ export function SupportSection() {
 
             <div className="col-span-2 flex flex-col px-4" style={{ paddingTop: '60px' }}>
                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold font-display text-[var(--color-text)]">
-                  Tu opinión
+                  {t('support.title')}
                   <br />
-                  <span className="text-[var(--color-accent)]">nos importa</span>
+                  <span className="text-[var(--color-accent)]">{t('support.titleSuffix')}</span>
                 </h2>
                 <p className="text-base text-[var(--color-text-muted)] mt-5 leading-relaxed">
-                Ayúdanos a mejorar. Envíanos tus sugerencias, reporta errores o cuéntanos cómo podemos ayudarte mejor a transformar tus finanzas.
+                {t('support.subtitle')}
               </p>
             </div>
 
@@ -319,46 +319,61 @@ export function SupportSection() {
                 <form onSubmit={handleSubmit} className="flex flex-col h-full space-y-3" noValidate>
                   <div className="space-y-2">
                     <div>
+                      <label htmlFor="contact-name" className="sr-only">{t('support.form.name')}</label>
                       <input 
+                        id="contact-name"
                         type="text" 
-                        placeholder="Tu nombre"
+                        placeholder={t('support.form.name')}
                         value={formData.name}
                         onChange={e => handleChange('name', e.target.value)}
+                        aria-required="true"
+                        aria-invalid={!!formErrors.name}
+                        aria-describedby={formErrors.name ? 'name-error' : undefined}
                         className={`w-full px-4 py-4 bg-[var(--color-background)] border ${formErrors.name ? 'border-red-500' : 'border-[var(--color-border)]'} rounded-xl text-base text-[var(--color-text)] placeholder-[var(--color-text-muted)] focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)] outline-none transition-all`}
                       />
-                      {formErrors.name && <p className="text-red-400 text-xs mt-1 px-1">{formErrors.name}</p>}
+                      {formErrors.name && <p id="name-error" className="text-red-400 text-xs mt-1 px-1" role="alert">{formErrors.name}</p>}
                     </div>
                     <div>
+                      <label htmlFor="contact-email" className="sr-only">{t('support.form.email')}</label>
                       <input 
+                        id="contact-email"
                         type="email" 
-                        placeholder="Tu email"
+                        placeholder={t('support.form.email')}
                         value={formData.email}
                         onChange={e => handleChange('email', e.target.value)}
+                        aria-required="true"
+                        aria-invalid={!!formErrors.email}
+                        aria-describedby={formErrors.email ? 'email-error' : undefined}
                         className={`w-full px-4 py-4 bg-[var(--color-background)] border ${formErrors.email ? 'border-red-500' : 'border-[var(--color-border)]'} rounded-xl text-base text-[var(--color-text)] placeholder-[var(--color-text-muted)] focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)] outline-none transition-all`}
                       />
-                      {formErrors.email && <p className="text-red-400 text-xs mt-1 px-1">{formErrors.email}</p>}
+                      {formErrors.email && <p id="email-error" className="text-red-400 text-xs mt-1 px-1" role="alert">{formErrors.email}</p>}
                     </div>
                   </div>
                   
                   <div className="flex-1 flex flex-col">
+                    <label htmlFor="contact-message" className="sr-only">{t('support.form.message')}</label>
                     <textarea 
-                      placeholder="Escribe tu mensaje..."
+                      id="contact-message"
+                      placeholder={t('support.form.message')}
                       value={formData.message}
                       onChange={e => handleChange('message', e.target.value)}
+                      aria-required="true"
+                      aria-invalid={!!formErrors.message}
+                      aria-describedby={formErrors.message ? 'message-error' : undefined}
                       className={`flex-1 min-h-[140px] w-full px-4 py-4 bg-[var(--color-background)] border ${formErrors.message ? 'border-red-500' : 'border-[var(--color-border)]'} rounded-xl text-base text-[var(--color-text)] placeholder-[var(--color-text-muted)] focus:ring-2 focus:ring-[var(--color-accent)] focus:border-[var(--color-accent)] outline-none transition-all resize-none`}
                     ></textarea>
-                    {formErrors.message && <p className="text-red-400 text-xs mt-1 px-1">{formErrors.message}</p>}
+                    {formErrors.message && <p id="message-error" className="text-red-400 text-xs mt-1 px-1" role="alert">{formErrors.message}</p>}
                   </div>
                   
                   {formStatus === 'sent' && (
-                    <div className="px-4 py-3 rounded-xl bg-green-500/20 border border-green-500/40 text-green-400 text-sm text-center">
-                      Mensaje enviado correctamente
+                    <div role="alert" aria-live="polite" className="px-4 py-3 rounded-xl bg-green-500/20 border border-green-500/40 text-green-400 text-sm text-center">
+                      {t('support.form.sent')}
                     </div>
                   )}
                   
                   {formStatus === 'error' && (
-                    <div className="px-4 py-3 rounded-xl bg-red-500/20 border border-red-500/40 text-red-400 text-sm text-center">
-                      Error al enviar. Intenta de nuevo.
+                    <div role="alert" aria-live="assertive" className="px-4 py-3 rounded-xl bg-red-500/20 border border-red-500/40 text-red-400 text-sm text-center">
+                      {t('support.form.error')}
                     </div>
                   )}
                   
@@ -368,10 +383,10 @@ export function SupportSection() {
                     className="w-full flex items-center justify-center gap-2 px-5 py-4 rounded-xl bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] text-base font-semibold text-[var(--color-background)] hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-opacity mt-auto"
                   >
                     {formStatus === 'sending' ? (
-                      <>Enviando...</>
+                      <>{t('support.form.sending')}</>
                     ) : (
                       <>
-                        <span>Enviar mensaje</span>
+                        <span>{t('support.form.submit')}</span>
                         <Send className="w-4 h-4" />
                       </>
                     )}
@@ -398,20 +413,20 @@ export function SupportSection() {
               <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/20 mb-4">
                 <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent)] animate-pulse" />
                 <span className="text-xs font-medium text-[var(--color-accent)]">
-                  Nueva versión
+                  {t('cta.badge')}
                 </span>
               </div>
 
               <h2 
                 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-[1.1] font-display text-[var(--color-text)]"
               >
-                ¿Listo para transformar
+                {t('cta.heading')}
                 <br />
-                <span className="text-[var(--color-accent)]">tus finanzas?</span>
+                <span className="text-[var(--color-accent)]">{t('cta.headingSuffix')}</span>
               </h2>
 
               <p className="text-sm text-[var(--color-text-muted)] max-w-md mt-3 mb-6">
-                Únete a +100K usuarios que ya disfrutan de la mejor experiencia en gestión financiera.
+                {t('cta.users')}
               </p>
 
               <div className="flex flex-col sm:flex-row gap-2">
@@ -423,7 +438,7 @@ export function SupportSection() {
                   <span className="w-7 h-7 rounded-full bg-[var(--color-surface)] flex items-center justify-center group-hover:bg-[var(--color-accent)] group-hover:text-[var(--color-background)] transition-colors">
                     <Play className="w-2.5 h-2.5 fill-current ml-0.5" />
                   </span>
-                  <span>Ver demo</span>
+                  <span>{t('cta.demo')}</span>
                 </button>
               </div>
             </div>

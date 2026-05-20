@@ -209,7 +209,7 @@ export function FeaturesSection() {
             {t('features.title')}
           </h2>
           <p className="text-[var(--color-text-muted)] text-lg max-w-2xl mx-auto">
-            Todo lo que necesitas para gestionar tus finanzas en un solo lugar.
+            {t('features.subtitle')}
           </p>
         </div>
 

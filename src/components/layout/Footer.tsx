@@ -5,6 +5,7 @@
  * Diseño limpio con énfasis en la licencia de uso personal.
  */
 
+import { useTranslation } from 'react-i18next';
 import { Smartphone, Mail, Phone } from 'lucide-react';
 
 // =============================================================================
@@ -52,6 +53,7 @@ const socialLinks = [
 // COMPONENTE PRINCIPAL
 // =============================================================================
 export function Footer() {
+  const { t } = useTranslation();
   return (
     <footer className="relative border-t border-[var(--color-border)] overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[var(--color-surface)]/20" />
@@ -73,23 +75,23 @@ export function Footer() {
               </span>
             </div>
             <p className="text-xs text-[var(--color-text-muted)] hidden sm:block">
-              Banca digital en Perú.
+              {t('footer.description')}
             </p>
           </div>
 
           {/* Columna 2: Contacto */}
           <div className="col-span-1 space-y-1 hidden sm:block">
             <h3 className="text-xs font-semibold text-[var(--color-text)] uppercase mb-2">
-              Contacto
+              {t('footer.contact')}
             </h3>
             <div className="space-y-1">
               <a href="mailto:hola@smartfinance.pe" className="flex items-center gap-1.5 text-xs text-[var(--color-text-muted)]">
                 <Mail className="w-3 h-3 text-[var(--color-accent)]" />
-                <span>hola@smartfinance.pe</span>
+                <span>{t('footer.email')}</span>
               </a>
               <a href="tel:+51999888777" className="flex items-center gap-1.5 text-xs text-[var(--color-text-muted)]">
                 <Phone className="w-3 h-3 text-[var(--color-accent)]" />
-                <span>+51 999 888 777</span>
+                <span>{t('footer.phone')}</span>
               </a>
             </div>
           </div>
@@ -97,14 +99,14 @@ export function Footer() {
           {/* Columna 3: Redes Sociales */}
           <div className="col-span-3 sm:col-span-1 space-y-1">
             <h3 className="text-xs font-semibold text-[var(--color-text)] uppercase mb-2">
-              Síguenos
+              {t('footer.social')}
             </h3>
             <div className="flex gap-2">
               {socialLinks.map(({ id, href }) => (
                 <a
                   key={id}
                   href={href}
-                  aria-label={id}
+                  aria-label={t(`footer.social.${id}`, id)}
                   className="w-7 h-7 rounded-lg bg-[var(--color-surface)] flex items-center justify-center text-[var(--color-text-muted)] hover:bg-[var(--color-accent)] hover:text-[var(--color-background)] transition-all"
                 >
                   <SocialIcon type={id as 'twitter' | 'linkedin' | 'instagram' | 'youtube'} />
@@ -121,15 +123,15 @@ export function Footer() {
         <div className="bg-[var(--color-surface)]/50 rounded-lg p-3 mb-5">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
             <div>
-              <p className="text-xs font-semibold text-[var(--color-text)]">
-                LICENCIA DE USO PERSONAL
+                <p className="text-xs font-semibold text-[var(--color-text)]">
+                  {t('footer.license')}
               </p>
               <p className="text-xs text-[var(--color-text-muted)]">
-                Uso exclusivamente personal. Prohibida distribución sin autorización.
+                {t('footer.licenseDesc')}
               </p>
             </div>
             <span className="text-xs px-2 py-1 rounded bg-[var(--color-accent)]/10 text-[var(--color-accent)]">
-              Solo uso personal
+              {t('footer.licenseTag')}
             </span>
           </div>
         </div>
@@ -137,10 +139,10 @@ export function Footer() {
         {/* Copyright */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-1">
           <p className="text-xs text-[var(--color-text-muted)]">
-            © {currentYear} Smart Finance.
+            © {currentYear} {t('footer.brand')}
           </p>
           <p className="text-xs text-[var(--color-text-muted)]">
-            Gestión financiera Perú con SUNAT.
+            {t('footer.tagline')}
           </p>
         </div>
 

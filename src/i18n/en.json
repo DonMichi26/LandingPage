@@ -23,10 +23,23 @@
       "invoices": "Create invoices in seconds",
       "reports": "Automatic SUNAT reports",
       "camera": "Scan your receipts"
+    },
+    "items": {
+      "metrics": "Real-time metrics",
+      "security": "Security",
+      "encryption": "AES-256",
+      "budget": "Budget",
+      "goals": "Goals",
+      "analytics": "Analytics",
+      "transfers": "Transfers",
+      "savings": "Savings",
+      "mobileApp": "Mobile App",
+      "bankWithYou": "Your bank with you everywhere"
     }
   },
   "features": {
     "title": "Everything you need on your phone",
+    "subtitle": "Everything you need to manage your finances in one place.",
     "items": {
       "camera": {
         "title": "Scan Receipts",
@@ -115,6 +128,7 @@
   },
   "testimonials": {
     "title": "What our users say",
+    "subtitle": "Real stories from people who transformed their finances",
     "items": {
       "1": {
         "quote": "Now I log my expenses at the exact moment. I forgot about losing receipts.",
@@ -164,22 +178,6 @@
       }
     }
   },
-  "contact": {
-    "title": "Have questions?",
-    "subtitle": "We're here to help. Contact us and we'll get back to you shortly.",
-    "form": {
-      "name": "Full name",
-      "email": "Email address",
-      "message": "Message",
-      "submit": "Send message",
-      "sending": "Sending..."
-    },
-    "info": {
-      "email": "support@yourlogo.com",
-      "phone": "+51 999 999 999",
-      "address": "Lima, Peru"
-    }
-  },
   "benefits": {
     "title": "Why choose us?",
     "items": {
@@ -226,9 +224,38 @@
   "cta": {
     "title": "Start today",
     "subtitle": "Download the app and take control of your finances",
-    "button": "Download free"
+    "button": "Download free",
+    "badge": "New version",
+    "heading": "Ready to transform",
+    "headingSuffix": "your finances?",
+    "users": "Join +100K users already enjoying the best financial management experience.",
+    "demo": "Watch demo"
+  },
+  "support": {
+    "title": "Your opinion",
+    "titleSuffix": "matters to us",
+    "subtitle": "Help us improve. Send us your suggestions, report bugs, or tell us how we can better help you transform your finances.",
+    "form": {
+      "name": "Your name",
+      "email": "Your email",
+      "message": "Write your message...",
+      "submit": "Send message",
+      "sending": "Sending...",
+      "sent": "Message sent successfully",
+      "error": "Error sending. Please try again."
+    }
   },
   "footer": {
+    "description": "Digital banking in Peru.",
+    "contact": "Contact",
+    "email": "hola@smartfinance.pe",
+    "phone": "+51 999 888 777",
+    "social": "Follow us",
+    "license": "PERSONAL USE LICENSE",
+    "licenseDesc": "Personal use only. Distribution without authorization prohibited.",
+    "licenseTag": "Personal use only",
+    "brand": "Smart Finance.",
+    "tagline": "Financial management Peru with SUNAT.",
     "links": {
       "product": "Product",
       "company": "Company",

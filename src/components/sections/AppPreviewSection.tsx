@@ -151,15 +151,15 @@ export function AppPreviewSection() {
           <BentoDark
             icon={BarChart3}
             title={t('appPreview.screenshots.dashboard')}
-            desc="Métricas en tiempo real"
+            desc={t('appPreview.items.metrics')}
             gradient="radial-gradient(circle at 30% 30%, var(--color-primary) 0%, #1a1a2e 50%, #0a0a0a 100%)"
             colRow="col-span-2 row-span-2 md:col-span-2 md:row-span-2"
           />
 
           <BentoDark
             icon={Shield}
-            title="Seguridad"
-            desc="AES-256"
+            title={t('appPreview.items.security')}
+            desc={t('appPreview.items.encryption')}
             gradient="radial-gradient(circle at 50% 80%, var(--color-accent) 0%, #0a0a0a 60%)"
             colRow="col-span-1 row-span-1 md:col-span-1 md:row-span-2"
           />
@@ -190,38 +190,38 @@ export function AppPreviewSection() {
 
           <BentoLight
             icon={Wallet}
-            title="Presupuesto"
+            title={t('appPreview.items.budget')}
             colRow="col-span-1 row-span-1 md:col-span-1 md:row-span-1"
           />
 
           <BentoLight
             icon={Target}
-            title="Metas"
+            title={t('appPreview.items.goals')}
             colRow="col-span-1 row-span-1 md:col-span-1 md:row-span-1"
           />
 
           <BentoLight
             icon={TrendingUp}
-            title="Analíticas"
+            title={t('appPreview.items.analytics')}
             colRow="col-span-1 row-span-1 md:col-span-1 md:row-span-1"
           />
 
           <BentoLight
             icon={ArrowUpRight}
-            title="Transferencias"
+            title={t('appPreview.items.transfers')}
             colRow="col-span-1 row-span-1 md:col-span-1 md:row-span-1"
           />
 
           <BentoLight
             icon={PiggyBank}
-            title="Ahorros"
+            title={t('appPreview.items.savings')}
             colRow="col-span-1 row-span-1 md:col-span-1 md:row-span-1"
           />
 
           <BentoLight
             icon={Smartphone}
-            title="App Móvil"
-            desc="Lleva tu banco contigo"
+            title={t('appPreview.items.mobileApp')}
+            desc={t('appPreview.items.bankWithYou')}
             colRow="col-span-2 row-span-1 md:col-span-1 md:row-span-1"
           />
         </div>
