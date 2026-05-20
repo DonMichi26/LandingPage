@@ -208,8 +208,10 @@ export function DownloadSection() {
               viewport={{ once: true }}
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             >
-              <button 
-                type="button"
+              <a
+                href="https://apps.apple.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="Descargar en App Store"
                 className="group flex items-center justify-center gap-3 bg-white hover:bg-white/90 text-[#050505] px-5 py-3 rounded-xl font-semibold transition-all hover:shadow-2xl hover:-translate-y-1"
               >
@@ -220,10 +222,12 @@ export function DownloadSection() {
                   <div className="text-xs text-[#050505]/60">Descargar en</div>
                   <div className="text-sm font-bold">App Store</div>
                 </div>
-              </button>
+              </a>
               
-              <button 
-                type="button"
+              <a
+                href="https://play.google.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="Descargar en Play Store"
                 className="group flex items-center justify-center gap-3 bg-white hover:bg-white/90 text-[#050505] px-5 py-3 rounded-xl font-semibold transition-all hover:shadow-2xl hover:-translate-y-1"
               >
@@ -234,7 +238,7 @@ export function DownloadSection() {
                   <div className="text-xs text-[#050505]/60">Disponible en</div>
                   <div className="text-sm font-bold">Play Store</div>
                 </div>
-              </button>
+              </a>
             </motion.div>
 
             <motion.div 

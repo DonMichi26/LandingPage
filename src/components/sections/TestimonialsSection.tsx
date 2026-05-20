@@ -20,16 +20,26 @@ interface TestimonialItem {
 }
 
 function AvatarInitial({ name, id }: { name: string; id: number }) {
-  const [imgError, setImgError] = useState(false);
-  return imgError ? (
-    <span className="text-xl font-bold text-[var(--color-accent)]">{name.charAt(0)}</span>
-  ) : (
-    <img
-      src={`/testimonials/user-${id}.jpg`}
-      alt={name}
-      className="w-full h-full object-cover"
-      onError={() => setImgError(true)}
-    />
+  const colors = [
+    { from: 'var(--color-primary)', to: 'var(--color-accent)' },
+    { from: '#6366f1', to: '#8b5cf6' },
+    { from: '#06b6d4', to: '#3b82f6' },
+  ];
+  const c = colors[id % colors.length];
+  return (
+    <svg className="w-full h-full" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+      <defs>
+        <linearGradient id={`avatar-grad-${id}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor={c.from} />
+          <stop offset="100%" stopColor={c.to} />
+        </linearGradient>
+      </defs>
+      <rect width="48" height="48" rx="24" fill={`url(#avatar-grad-${id})`} />
+      <text x="24" y="24" textAnchor="middle" dominantBaseline="central"
+            fill="white" fontSize="20" fontWeight="700" fontFamily="system-ui">
+        {name.charAt(0)}
+      </text>
+    </svg>
   );
 }
 
