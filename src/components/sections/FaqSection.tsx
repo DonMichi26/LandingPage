@@ -81,7 +81,7 @@ export function FaqSection() {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           <div>
             <div className="mb-12">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4" style={{ fontFamily: 'var(--font-display)' }}>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white font-display mb-4">
                 {t('faq.title')}
               </h2>
               <p className="text-[var(--color-text-muted)] text-lg">

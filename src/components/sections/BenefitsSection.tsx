@@ -12,7 +12,7 @@ export function BenefitsSection() {
     <section id="benefits" className="py-20 md:py-28 bg-[var(--color-bg-light)]">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--color-text-dark)] mb-4" style={{ fontFamily: 'var(--font-display)' }}>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-display text-[var(--color-text-dark)] mb-4">
             {t('benefits.title')}
           </h2>
         </div>

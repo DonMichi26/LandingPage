@@ -48,8 +48,7 @@ export function CtaSection() {
 
             {/* Título */}
             <h2 
-              className="text-2xl sm:text-3xl md:text-4xl font-bold leading-[1.1] text-[var(--color-text)]"
-              style={{ fontFamily: 'var(--font-display)' }}
+              className="text-2xl sm:text-3xl md:text-4xl font-bold leading-[1.1] font-display text-[var(--color-text)]"
             >
               ¿Listo para transformar
               <br />

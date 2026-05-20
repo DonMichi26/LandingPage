@@ -1,9 +1,10 @@
 @import "tailwindcss";
 
 @theme {
-  --font-display: 'Syne', sans-serif;
-  --font-body: 'DM Sans', sans-serif;
-  
+  --font-display: 'Figtree', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+
   --color-primary: oklch(65% 0.15 250);        
   --color-primary-hover: oklch(75% 0.18 250);  
   --color-accent: oklch(85% 0.20 190);         
@@ -147,13 +148,6 @@ section {
   transform: translateY(-2px);
 }
 
-.text-gradient {
-  background: radial-gradient(circle at 30% 30%, var(--color-text) 0%, var(--color-accent) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-20px); }
@@ -175,6 +169,33 @@ section {
   75% { 
     transform: translate(-15px, -10px) scale(1.1); 
     opacity: 0.6;
+  }
+}
+
+@keyframes particleBlink {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: inherit;
+  }
+  15% {
+    transform: translate(8px, -12px) scale(1.3);
+    opacity: 1;
+  }
+  30% {
+    transform: translate(-4px, -20px) scale(0.6);
+    opacity: 0;
+  }
+  50% {
+    transform: translate(-12px, -8px) scale(0.4);
+    opacity: 0;
+  }
+  65% {
+    transform: translate(6px, -18px) scale(1.2);
+    opacity: 0.9;
+  }
+  80% {
+    transform: translate(-8px, -6px) scale(0.8);
+    opacity: 0.3;
   }
 }
 

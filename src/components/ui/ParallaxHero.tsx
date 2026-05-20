@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Smartphone, ArrowRight, Play, TrendingUp, Shield, Zap } from 'lucide-react';
+import { Smartphone, ArrowRight, Play, TrendingUp, Users, FileText, Globe, Award } from 'lucide-react';
 import { useEffect, useState, useRef } from 'react';
 
 interface Particle {
@@ -144,10 +144,10 @@ export function ParallaxHero() {
               </div>
               
               {/* Title - staggered entrance */}
-              <h1 className={`text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.05] mb-6 transition-all duration-500 ease-out ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} 
-                  style={{ fontFamily: 'var(--font-display)', transitionDelay: mounted ? '200ms' : '0ms' }}>
-                <span className="block text-white">{t('hero.title').split(' ')[0]}</span>
-                <span className="text-gradient">
+              <h1 className={`text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.05] font-display mb-6 transition-all duration-500 ease-out ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} 
+                  style={{ transitionDelay: mounted ? '200ms' : '0ms' }}>
+                <span className="block text-white">{t('hero.brandPrefix')}</span>
+                <span className="text-[var(--color-accent)]">
                   Smart Finance
                 </span>
               </h1>
@@ -174,27 +174,29 @@ export function ParallaxHero() {
                 </button>
               </div>
               
-              {/* Stats - staggered entrance */}
-              <div className={`mt-12 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-sm transition-all duration-500 ease-out ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+              {/* Stats cards */}
+              <div className={`mt-14 grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 transition-all duration-500 ease-out ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
                    style={{ transitionDelay: mounted ? '500ms' : '0ms' }}>
-                <div className="flex items-center gap-2.5 text-white/60 hover:text-white/80 transition-colors duration-150">
-                  <div className="w-9 h-9 card-dark rounded-lg flex items-center justify-center">
-                    <TrendingUp className="w-4 h-4 text-[var(--color-accent)]" />
+                {[
+                  { value: '10K', suffix: '+', label: t('stats.clients'), icon: Users },
+                  { value: '500K', suffix: '+', label: t('stats.invoices'), icon: FileText },
+                  { value: '5', suffix: '', label: t('stats.countries'), icon: Globe },
+                  { value: '8', suffix: '+', label: t('stats.years'), icon: Award },
+                ].map((stat, i) => (
+                  <div key={stat.label}
+                       className="text-center p-4 md:p-5 card-dark rounded-2xl transition-all duration-300 hover:scale-[1.03] hover:border-[var(--color-accent)]/30"
+                       style={{ transitionDelay: mounted ? `${550 + i * 80}ms` : '0ms' }}>
+                    <div className="w-9 h-9 mx-auto mb-3 rounded-xl bg-[var(--color-accent)]/20 flex items-center justify-center transition-all duration-300 group-hover:bg-[var(--color-accent)]/30 group-hover:scale-110">
+                      <stat.icon className="w-4 h-4 text-[var(--color-accent)]" />
+                    </div>
+                    <div className="text-xl md:text-2xl font-bold font-display text-[var(--color-text)] mb-0.5">
+                      {stat.value}{stat.suffix}
+                    </div>
+                    <div className="text-[10px] md:text-xs text-[var(--color-text-muted)] uppercase tracking-wider">
+                      {stat.label}
+                    </div>
                   </div>
-                  <span className="font-medium">4.9 <span className="text-white/40">App Store</span></span>
-                </div>
-                <div className="flex items-center gap-2.5 text-white/60 hover:text-white/80 transition-colors duration-150">
-                  <div className="w-9 h-9 card-dark rounded-lg flex items-center justify-center">
-                    <Shield className="w-4 h-4 text-[var(--color-accent)]" />
-                  </div>
-                  <span className="font-medium">SUNAT <span className="text-white/40">Ready</span></span>
-                </div>
-                <div className="flex items-center gap-2.5 text-white/60 hover:text-white/80 transition-colors duration-150">
-                  <div className="w-9 h-9 card-dark rounded-lg flex items-center justify-center">
-                    <Zap className="w-4 h-4 text-[var(--color-accent)]" />
-                  </div>
-                  <span className="font-medium"><span className="text-white/40">+100K</span> Usuarios</span>
-                </div>
+                ))}
               </div>
             </div>
             

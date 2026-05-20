@@ -7,6 +7,7 @@
     "contact": "Contact"
   },
   "hero": {
+    "brandPrefix": "Your",
     "title": "Your accountant in your pocket",
     "subtitle": "Manage your finances from your phone. Track expenses, create invoices, and report to SUNAT from anywhere.",
     "cta": "Download free",
@@ -46,6 +47,10 @@
         "title": "Mobile Invoicing",
         "desc": "Create and send electronic invoices directly from your phone."
       },
+      "security": {
+        "title": "Bank-Grade Security",
+        "desc": "AES-256 Encryption"
+      },
       "reports": {
         "title": "SUNAT Reports",
         "desc": "Generate and file your tax returns from the app."
@@ -53,12 +58,21 @@
     }
   },
   "download": {
-    "title": "Take your accountant with you",
-    "subtitle": "Download the app and take control of your finances",
-    "appStore": "Download on App Store",
-    "playStore": "Get it on Play Store",
-    "free": "Free to start",
-    "noCreditCard": "No credit card required"
+    "title": "Download the app",
+    "titleSuffix": "in your pocket",
+    "subtitle": "Take control of your finances and SUNAT filings wherever you are. Real-time sync.",
+    "free": "Free",
+    "noCreditCard": "No credit card required",
+    "mockup": {
+      "balance": "Available Balance",
+      "income": "Income",
+      "expenses": "Expenses",
+      "newIncome": "+ New income",
+      "invoiceCreated": "Invoice created",
+      "sunatAccepted": "SUNAT accepted",
+      "amountAdded": "+ S/ 150.00",
+      "incomeRegistered": "Income registered"
+    }
   },
   "comparison": {
     "title": "Compare and decide",

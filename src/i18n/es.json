@@ -7,6 +7,7 @@
     "contact": "Contacto"
   },
   "hero": {
+    "brandPrefix": "Tu",
     "title": "Tu contador en el bolsillo",
     "subtitle": "Gestiona tus finanzas desde tu teléfono. Controla gastos, crea facturas y reporta a SUNAT dondequiera que estés.",
     "cta": "Descargar gratis",
@@ -46,6 +47,10 @@
         "title": "Facturación Móvil",
         "desc": "Crea y envía facturas electrónicas directamente desde tu teléfono."
       },
+      "security": {
+        "title": "Seguridad Bancaria",
+        "desc": "Encriptación AES-256"
+      },
       "reports": {
         "title": "Reportes SUNAT",
         "desc": "Genera y presenta tus declaraciones tributarias desde la app."
@@ -53,12 +58,21 @@
     }
   },
   "download": {
-    "title": "Lleva tu contador contigo",
-    "subtitle": "Descarga la app y toma el control de tus finanzas",
-    "appStore": "Descargar en App Store",
-    "playStore": "Descargar en Play Store",
-    "free": "Gratis para comenzar",
-    "noCreditCard": "No requiere tarjeta de crédito"
+    "title": "Descarga la app",
+    "titleSuffix": "en tu bolsillo",
+    "subtitle": "Lleva el control de tus finanzas y declaraciones SUNAT donde sea que estés. Sincronización en tiempo real.",
+    "free": "Gratis",
+    "noCreditCard": "Sin tarjeta de crédito",
+    "mockup": {
+      "balance": "Balance Disponible",
+      "income": "Ingresos",
+      "expenses": "Gastos",
+      "newIncome": "+ Nuevo ingreso",
+      "invoiceCreated": "Factura creada",
+      "sunatAccepted": "SUNAT accepted",
+      "amountAdded": "+ S/ 150.00",
+      "incomeRegistered": "Ingreso registrado"
+    }
   },
   "comparison": {
     "title": "Compara y decide",
@@ -88,7 +102,7 @@
       },
       "invoice": {
         "label": "Crear factura",
-        "traditional": "Ir a la oficina,电脑, software",
+        "traditional": "Ir a la oficina, computadora, software",
         "app": "Desde tu bolsillo"
       },
       "sunat": {

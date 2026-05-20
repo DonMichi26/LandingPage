@@ -25,8 +25,7 @@ const navItems = [
   { key: 'features', href: '#features' },
   { key: 'download', href: '#download' },
   { key: 'testimonials', href: '#testimonials' },
-  { key: 'faq', href: '#faq' },
-  { key: 'contact', href: '#contact' },
+  { key: 'support', href: '#support' },
 ];
 
 // =============================================================================

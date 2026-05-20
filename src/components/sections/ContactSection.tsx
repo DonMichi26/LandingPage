@@ -32,7 +32,7 @@ export function ContactSection() {
 
           {/* Columna 2: Título - más relevante */}
           <div className="col-span-2 flex flex-col px-4" style={{ paddingTop: '60px' }}>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[var(--color-text)]" style={{ fontFamily: 'var(--font-display)' }}>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold font-display text-[var(--color-text)]">
               Tu opinión
               <br />
               <span className="text-[var(--color-accent)]">nos importa</span>

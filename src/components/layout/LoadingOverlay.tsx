@@ -1,11 +1,11 @@
 /**
  * LoadingOverlay.tsx
  * ==================
- * Pantalla de carga minimalista con spinner estilo Microsoft (16 dots).
+ * Pantalla de carga minimalista con spinner estilo Microsoft (12 dots).
  * Muestra progreso de carga sin texto, solo iconografía y animaciones.
  * 
  * @features
- * - Spinner circular de 16 dots con iluminacion secuencial
+ * - Spinner circular de 12 dots con iluminacion secuencial
  * - Iconos de financiera con opacidad animada
  * - Fondo con orbe sutil animado
  * - Exit animation con fade-out
@@ -19,7 +19,7 @@ import { Wallet, PieChart, TrendingUp, DollarSign } from 'lucide-react';
 // CONSTANTES
 // =============================================================================
 const LOADING_DURATION = 1500;
-const DOT_COUNT = 16;
+const DOT_COUNT = 10;
 const DOT_RADIUS = 30;
 const SVG_SIZE = 80;
 
@@ -75,7 +75,7 @@ export function LoadingOverlay() {
 
           {/* Contenido centrado */}
           <div className="relative z-10 flex flex-col items-center gap-8">
-            <Spinner16Dots progress={progress} />
+            <Spinner12Dots progress={progress} />
             <IconRow />
           </div>
         </motion.div>
@@ -117,14 +117,14 @@ function BackgroundOrb() {
 }
 
 /**
- * Spinner16Dots
+ * Spinner12Dots
  * ------------
- * Spinner estilo Microsoft: 16 dots en circulo.
+ * Spinner estilo Microsoft: 12 dots en circulo.
  * Los dots se iluminan secuencialmente segun el progreso (0-100%).
  * 
  * @param {number} progress - Porcentaje de carga (0-100)
  */
-function Spinner16Dots({ progress }: { progress: number }) {
+function Spinner12Dots({ progress }: { progress: number }) {
   return (
     <div className="relative w-20 h-20 flex items-center justify-center">
       <svg viewBox={`0 0 ${SVG_SIZE} ${SVG_SIZE}`} className="w-full h-full">
