@@ -1,16 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Quote } from 'lucide-react';
-
-interface Particle {
-  id: number;
-  x: number;
-  y: number;
-  size: number;
-  duration: number;
-  delay: number;
-  opacity: number;
-}
+import { useParticles } from '../../hooks/useParticles';
+import { useMousePosition } from '../../hooks/useMousePosition';
+import { GlowingOrbs } from '../ui/GlowingOrbs';
+import { ParticleField } from '../ui/ParticleField';
+import { MouseGlow } from '../ui/MouseGlow';
 
 interface TestimonialItem {
   id: number;
@@ -46,48 +41,12 @@ function AvatarInitial({ name, id }: { name: string; id: number }) {
 export function TestimonialsSection() {
   const { t } = useTranslation();
   const [mounted, setMounted] = useState(false);
-  const [particles, setParticles] = useState<Particle[]>([]);
   const sectionRef = useRef<HTMLElement>(null);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const particles = useParticles(30, { minOpacity: 0.1, maxOpacity: 0.4, minSize: 1, maxSize: 3 });
+  const mousePos = useMousePosition(sectionRef);
 
   useEffect(() => {
     setMounted(true);
-    
-    const newParticles: Particle[] = [];
-    for (let i = 0; i < 30; i++) {
-      newParticles.push({
-        id: i,
-        x: Math.random() * 100,
-        y: Math.random() * 100,
-        size: Math.random() * 3 + 1,
-        duration: Math.random() * 8 + 10,
-        delay: Math.random() * 5,
-        opacity: Math.random() * 0.4 + 0.1,
-      });
-    }
-    setParticles(newParticles);
-  }, []);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (sectionRef.current) {
-        const rect = sectionRef.current.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width) * 100;
-        const y = ((e.clientY - rect.top) / rect.height) * 100;
-        setMousePos({ x, y });
-      }
-    };
-
-    const section = sectionRef.current;
-    if (section) {
-      section.addEventListener('mousemove', handleMouseMove);
-    }
-
-    return () => {
-      if (section) {
-        section.removeEventListener('mousemove', handleMouseMove);
-      }
-    };
   }, []);
 
   const testimonials: TestimonialItem[] = [
@@ -98,65 +57,23 @@ export function TestimonialsSection() {
 
   return (
     <section ref={sectionRef} id="testimonials" className="py-20 md:py-28 bg-[var(--color-bg-light)] relative overflow-hidden">
-      {/* Glowing orbs background */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-20 -right-20 w-[500px] h-[500px] rounded-full" 
-             style={{ background: 'radial-gradient(circle, var(--color-primary) 0%, transparent 70%)', filter: 'blur(80px)', opacity: 0.15 }} 
-        />
-        <div className="absolute -top-10 -left-32 w-[400px] h-[400px] rounded-full" 
-             style={{ background: 'radial-gradient(circle, var(--color-accent) 0%, transparent 70%)', filter: 'blur(60px)', opacity: 0.12 }} 
-        />
-        <div className="absolute top-1/3 right-10 w-[250px] h-[250px] rounded-full" 
-             style={{ background: 'radial-gradient(circle, var(--color-primary) 0%, transparent 70%)', filter: 'blur(50px)', opacity: 0.1 }} 
-        />
-        <div className="absolute bottom-20 -left-20 w-[350px] h-[350px] rounded-full" 
-             style={{ background: 'radial-gradient(circle, var(--color-accent) 0%, transparent 70%)', filter: 'blur(70px)', opacity: 0.1 }} 
-        />
-        <div className="absolute -bottom-10 right-1/4 w-[200px] h-[200px] rounded-full" 
-             style={{ background: 'radial-gradient(circle, var(--color-primary) 0%, transparent 70%)', filter: 'blur(40px)', opacity: 0.08 }} 
-        />
-        <div className="absolute inset-0 bg-[var(--color-bg-light)]/90" />
-        
-        {/* Floating particles */}
-        <div className="absolute inset-0 z-5">
-          {particles.map((particle) => (
-            <div
-              key={particle.id}
-              className="absolute rounded-full"
-              style={{
-                left: `${particle.x}%`,
-                top: `${particle.y}%`,
-                width: particle.size,
-                height: particle.size,
-                background: `radial-gradient(circle, var(--color-accent) 0%, transparent 70%)`,
-                opacity: particle.opacity,
-                filter: 'blur(1px)',
-                transform: 'translateZ(0)',
-                animation: `particleFloat ${particle.duration}s ease-in-out infinite`,
-                animationDelay: `${particle.delay}s`,
-              }}
-            />
-          ))}
-        </div>
-        
-        {/* Mouse glow */}
-        <div 
-          className="absolute w-[300px] h-[300px] rounded-full pointer-events-none z-10"
-          style={{
-            left: `${mousePos.x}%`,
-            top: `${mousePos.y}%`,
-            transform: 'translate(-50%, -50%)',
-            background: 'radial-gradient(circle, var(--color-accent) 0%, transparent 60%)',
-            filter: 'blur(40px)',
-            opacity: 0.1,
-            transition: 'left 0.3s ease-out, top 0.3s ease-out',
-          }}
-        />
-      </div>
+      <GlowingOrbs
+        orbs={[
+          { top: '-20px', right: '-20px', width: '500px', height: '500px', color: 'primary', opacity: 0.15, blur: '80px' },
+          { top: '-10px', left: '-128px', width: '400px', height: '400px', color: 'accent', opacity: 0.12, blur: '60px' },
+          { top: '33%', right: '40px', width: '250px', height: '250px', color: 'primary', opacity: 0.1, blur: '50px' },
+          { bottom: '80px', left: '-80px', width: '350px', height: '350px', color: 'accent', opacity: 0.1, blur: '70px' },
+          { bottom: '-40px', right: '25%', width: '200px', height: '200px', color: 'primary', opacity: 0.08, blur: '40px' },
+        ]}
+        overlay
+        overlayColor="rgba(250,250,252,0.9)"
+      />
+      <ParticleField particles={particles} />
+      <MouseGlow mousePos={mousePos} size="300px" blur="40px" opacity={0.1} />
 
       <div className="max-w-7xl mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
-          <h2 
+          <h2
             className={`text-3xl md:text-4xl lg:text-5xl font-bold font-display text-[var(--color-text-dark)] mb-4 transition-all duration-700 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
           >
             {t('testimonials.title')}
@@ -168,18 +85,16 @@ export function TestimonialsSection() {
 
         <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
           {testimonials.map((item, index) => (
-            <div 
+            <div
               key={item.id}
               className={`group relative bg-white rounded-3xl border border-[var(--color-border-light)] hover:border-[var(--color-accent)]/40 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-[var(--color-accent)]/10 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
               style={{ transitionDelay: mounted ? `${index * 150}ms` : '0ms' }}
             >
-              {/* Quote icon */}
               <div className="absolute -top-4 left-6 w-10 h-10 bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-accent)] rounded-2xl flex items-center justify-center shadow-lg">
                 <Quote className="w-5 h-5 text-white" />
               </div>
 
               <div className="p-6 pt-10">
-                {/* Avatar / Placeholder circular */}
                 <div className="flex items-center gap-4 mb-4">
                   <div className="relative">
                     <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[var(--color-primary)]/20 to-[var(--color-accent)]/20 border border-[var(--color-border-light)] flex items-center justify-center overflow-hidden">
@@ -192,7 +107,6 @@ export function TestimonialsSection() {
                   </div>
                 </div>
 
-                {/* Estrellas */}
                 <div className="flex items-center gap-0.5 mb-3">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <svg key={star} className="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
@@ -206,10 +120,9 @@ export function TestimonialsSection() {
                 </p>
               </div>
 
-              {/* Hover glow effect */}
               <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[var(--color-accent)]/0 to-[var(--color-primary)]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
             </div>
-))}
+          ))}
         </div>
       </div>
     </section>

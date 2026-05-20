@@ -1,16 +1,11 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MessageCircle, HelpCircle, CreditCard, Send, ArrowRight, Play } from 'lucide-react';
-
-interface Particle {
-  id: number;
-  x: number;
-  y: number;
-  size: number;
-  duration: number;
-  delay: number;
-  opacity: number;
-}
+import { useParticles } from '../../hooks/useParticles';
+import { useMousePosition } from '../../hooks/useMousePosition';
+import { GlowingOrbs } from '../ui/GlowingOrbs';
+import { ParticleField } from '../ui/ParticleField';
+import { MouseGlow } from '../ui/MouseGlow';
 
 const faqIcons = [MessageCircle, HelpCircle, CreditCard];
 const faqKeys = ['1', '2', '3'];
@@ -78,9 +73,9 @@ function FaqCard({ question, answer, icon: Icon, index }: FaqItemProps) {
 
 export function SupportSection() {
   const { t } = useTranslation();
-  const [particles, setParticles] = useState<Particle[]>([]);
   const sectionRef = useRef<HTMLElement>(null);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const particles = useParticles(50, { minOpacity: 0.2, maxOpacity: 0.6, minSize: 2, maxSize: 4, minDuration: 12, maxDuration: 20 });
+  const mousePos = useMousePosition(sectionRef);
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
@@ -112,133 +107,27 @@ export function SupportSection() {
     if (formErrors[field]) setFormErrors(prev => ({ ...prev, [field]: '' }));
   };
 
-  useEffect(() => {
-    const newParticles: Particle[] = [];
-    for (let i = 0; i < 50; i++) {
-      newParticles.push({
-        id: i,
-        x: Math.random() * 100,
-        y: Math.random() * 100,
-        size: Math.random() * 4 + 2,
-        duration: Math.random() * 8 + 12,
-        delay: Math.random() * 5,
-        opacity: Math.random() * 0.6 + 0.2,
-      });
-    }
-    setParticles(newParticles);
-  }, []);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (sectionRef.current) {
-        const rect = sectionRef.current.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width) * 100;
-        const y = ((e.clientY - rect.top) / rect.height) * 100;
-        setMousePos({ x, y });
-      }
-    };
-
-    const section = sectionRef.current;
-    if (section) {
-      section.addEventListener('mousemove', handleMouseMove);
-    }
-
-    return () => {
-      if (section) {
-        section.removeEventListener('mousemove', handleMouseMove);
-      }
-    };
-  }, []);
-
   return (
     <section ref={sectionRef} id="support" className="bg-black relative overflow-hidden">
-      {/* Glowing orbs como en Hero */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Large orbs - Hero intensity */}
-        <div className="absolute -top-20 -right-20 w-[500px] h-[500px] rounded-full" 
-             style={{ background: 'radial-gradient(circle, var(--color-primary) 0%, transparent 70%)', filter: 'blur(80px)', opacity: 0.4 }} 
-        />
-        <div className="absolute -top-10 -left-32 w-[400px] h-[400px] rounded-full" 
-             style={{ background: 'radial-gradient(circle, var(--color-accent) 0%, transparent 70%)', filter: 'blur(60px)', opacity: 0.35 }} 
-        />
-        <div className="absolute top-1/3 right-10 w-[250px] h-[250px] rounded-full" 
-             style={{ background: 'radial-gradient(circle, var(--color-primary) 0%, transparent 70%)', filter: 'blur(50px)', opacity: 0.3 }} 
-        />
-        <div className="absolute bottom-20 -left-20 w-[350px] h-[350px] rounded-full" 
-             style={{ background: 'radial-gradient(circle, var(--color-accent) 0%, transparent 70%)', filter: 'blur(70px)', opacity: 0.25 }} 
-        />
-        <div className="absolute -bottom-10 right-1/4 w-[200px] h-[200px] rounded-full" 
-             style={{ background: 'radial-gradient(circle, var(--color-primary) 0%, transparent 70%)', filter: 'blur(40px)', opacity: 0.2 }} 
-        />
-        {/* Extra orbs with similar intensity */}
-        <div className="absolute top-1/4 left-1/4 w-[180px] h-[180px] rounded-full" 
-             style={{ background: 'radial-gradient(circle, var(--color-accent) 0%, transparent 70%)', filter: 'blur(50px)', opacity: 0.25 }} 
-        />
-        <div className="absolute top-2/3 right-1/3 w-[150px] h-[150px] rounded-full" 
-             style={{ background: 'radial-gradient(circle, var(--color-primary) 0%, transparent 70%)', filter: 'blur(40px)', opacity: 0.2 }} 
-        />
-        <div className="absolute bottom-1/3 left-10 w-[120px] h-[120px] rounded-full" 
-             style={{ background: 'radial-gradient(circle, var(--color-accent) 0%, transparent 70%)', filter: 'blur(30px)', opacity: 0.25 }} 
-        />
-        <div className="absolute top-10 left-1/3 w-[100px] h-[100px] rounded-full" 
-             style={{ background: 'radial-gradient(circle, var(--color-primary) 0%, transparent 70%)', filter: 'blur(25px)', opacity: 0.2 }} 
-        />
-        <div className="absolute bottom-10 right-20 w-[80px] h-[80px] rounded-full" 
-             style={{ background: 'radial-gradient(circle, var(--color-accent) 0%, transparent 70%)', filter: 'blur(20px)', opacity: 0.25 }} 
-        />
-        <div className="absolute top-1/2 left-10 w-[160px] h-[160px] rounded-full" 
-             style={{ background: 'radial-gradient(circle, var(--color-primary) 0%, transparent 70%)', filter: 'blur(45px)', opacity: 0.2 }} 
-        />
-        <div className="absolute bottom-1/4 right-10 w-[140px] h-[140px] rounded-full" 
-             style={{ background: 'radial-gradient(circle, var(--color-accent) 0%, transparent 70%)', filter: 'blur(35px)', opacity: 0.2 }} 
-        />
-        <div className="absolute top-3/4 left-1/3 w-[90px] h-[90px] rounded-full" 
-             style={{ background: 'radial-gradient(circle, var(--color-primary) 0%, transparent 70%)', filter: 'blur(25px)', opacity: 0.2 }} 
-        />
-        <div className="absolute top-1/6 right-1/3 w-[110px] h-[110px] rounded-full" 
-             style={{ background: 'radial-gradient(circle, var(--color-accent) 0%, transparent 70%)', filter: 'blur(30px)', opacity: 0.15 }} 
-        />
-        <div className="absolute inset-0 bg-black/60" />
-        <div className="absolute inset-0 opacity-[0.03]" 
-             style={{ backgroundImage: 'radial-gradient(var(--color-accent) 1px, transparent 1px)', backgroundSize: '32px 32px' }} 
-        />
-        
-        {/* Partículas flotantes */}
-        <div className="absolute inset-0 z-5">
-          {particles.map((particle) => (
-            <div
-              key={particle.id}
-              className="absolute rounded-full"
-              style={{
-                left: `${particle.x}%`,
-                top: `${particle.y}%`,
-                width: particle.size,
-                height: particle.size,
-                background: `radial-gradient(circle, var(--color-accent) 0%, transparent 70%)`,
-                opacity: particle.opacity,
-                filter: 'blur(1px)',
-                transform: 'translateZ(0)',
-                animation: `particleFloat ${particle.duration}s ease-in-out infinite`,
-                animationDelay: `${particle.delay}s`,
-              }}
-            />
-          ))}
-        </div>
-        
-        {/* Glow que sigue al mouse */}
-        <div 
-          className="absolute w-[300px] h-[300px] rounded-full pointer-events-none z-10"
-          style={{
-            left: `${mousePos.x}%`,
-            top: `${mousePos.y}%`,
-            transform: 'translate(-50%, -50%)',
-            background: 'radial-gradient(circle, var(--color-accent) 0%, transparent 60%)',
-            filter: 'blur(40px)',
-            opacity: 0.15,
-            transition: 'left 0.3s ease-out, top 0.3s ease-out',
-          }}
-        />
-      </div>
+      <GlowingOrbs
+        orbs={[
+          { top: '-20px', right: '-20px', width: '500px', height: '500px', color: 'primary', opacity: 0.4, blur: '80px' },
+          { top: '-10px', left: '-128px', width: '400px', height: '400px', color: 'accent', opacity: 0.35, blur: '60px' },
+          { top: '33%', right: '40px', width: '250px', height: '250px', color: 'primary', opacity: 0.3, blur: '50px' },
+          { bottom: '80px', left: '-80px', width: '350px', height: '350px', color: 'accent', opacity: 0.25, blur: '70px' },
+          { bottom: '-40px', right: '25%', width: '200px', height: '200px', color: 'primary', opacity: 0.2, blur: '40px' },
+          { top: '25%', left: '25%', width: '180px', height: '180px', color: 'accent', opacity: 0.25, blur: '50px' },
+          { top: '66%', right: '33%', width: '150px', height: '150px', color: 'primary', opacity: 0.2, blur: '40px' },
+          { bottom: '33%', left: '40px', width: '120px', height: '120px', color: 'accent', opacity: 0.25, blur: '30px' },
+        ]}
+        overlay
+        overlayColor="rgba(0,0,0,0.6)"
+      />
+      <div className="absolute inset-0 opacity-[0.03]"
+           style={{ backgroundImage: 'radial-gradient(var(--color-accent) 1px, transparent 1px)', backgroundSize: '32px 32px' }}
+      />
+      <ParticleField particles={particles} animation="float" />
+      <MouseGlow mousePos={mousePos} opacity={0.15} />
       
       <div className="relative z-10">
         {/* FAQ Section */}

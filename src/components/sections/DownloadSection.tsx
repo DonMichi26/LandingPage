@@ -1,16 +1,11 @@
-import { useState, useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion, useScroll, useTransform } from 'framer-motion';
-
-interface Particle {
-  id: number;
-  x: number;
-  y: number;
-  size: number;
-  duration: number;
-  delay: number;
-  opacity: number;
-}
+import { useParticles } from '../../hooks/useParticles';
+import { useMousePosition } from '../../hooks/useMousePosition';
+import { GlowingOrbs } from '../ui/GlowingOrbs';
+import { ParticleField } from '../ui/ParticleField';
+import { MouseGlow } from '../ui/MouseGlow';
 
 interface MockupCardProps {
   title: string;
@@ -34,139 +29,51 @@ function MockupCard({ title, subtitle, icon: Icon }: MockupCardProps) {
 
 export function DownloadSection() {
   const { t } = useTranslation();
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const sectionRef = useRef<HTMLElement>(null);
-  
+  const particles = useParticles(12, { minOpacity: 0.15, maxOpacity: 0.4, minSize: 2, maxSize: 3, minDuration: 12, maxDuration: 20 });
+  const mousePos = useMousePosition(sectionRef);
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"]
   });
   const y = useTransform(scrollYProgress, [0, 1], [50, -50]);
 
-  // Inicializar partículas en el estado inicial (elimina el error de lint set-state-in-effect)
-  const [particles] = useState<Particle[]>(() => {
-    const newParticles: Particle[] = [];
-    for (let i = 0; i < 12; i++) {
-      newParticles.push({
-        id: i,
-        x: Math.random() * 100,
-        y: Math.random() * 100,
-        size: Math.random() * 3 + 2,
-        duration: Math.random() * 8 + 12,
-        delay: Math.random() * 5,
-        opacity: Math.random() * 0.4 + 0.15,
-      });
-    }
-    return newParticles;
-  });
-
-  // Throttling para mousemove (mejora rendimiento)
-  useEffect(() => {
-    let rafId: number;
-    
-    const handleMouseMove = (e: MouseEvent) => {
-      cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(() => {
-        if (sectionRef.current) {
-          const rect = sectionRef.current.getBoundingClientRect();
-          const x = ((e.clientX - rect.left) / rect.width) * 100;
-          const y = ((e.clientY - rect.top) / rect.height) * 100;
-          setMousePos({ x, y });
-        }
-      });
-    };
-
-    const section = sectionRef.current;
-    if (section) {
-      section.addEventListener('mousemove', handleMouseMove);
-    }
-
-    return () => {
-      if (section) {
-        section.removeEventListener('mousemove', handleMouseMove);
-      }
-      cancelAnimationFrame(rafId);
-    };
-  }, []);
-
   return (
-    <section 
-      ref={sectionRef} 
-      id="download" 
+    <section
+      ref={sectionRef}
+      id="download"
       className="relative py-20 md:py-32 overflow-hidden bg-[var(--color-background)]"
     >
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full" 
-             style={{ background: 'radial-gradient(circle, var(--color-primary) 0%, transparent 70%)', filter: 'blur(100px)', opacity: 0.35 }} 
-        />
-        <div className="absolute top-1/4 left-0 w-[400px] h-[400px] rounded-full" 
-             style={{ background: 'radial-gradient(circle, var(--color-accent) 0%, transparent 70%)', filter: 'blur(80px)', opacity: 0.3 }} 
-        />
-        <div className="absolute top-1/2 left-1/3 w-[300px] h-[300px] rounded-full" 
-             style={{ background: 'radial-gradient(circle, var(--color-primary) 0%, transparent 70%)', filter: 'blur(60px)', opacity: 0.25 }} 
-        />
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full" 
-             style={{ background: 'radial-gradient(circle, var(--color-accent) 0%, transparent 70%)', filter: 'blur(90px)', opacity: 0.28 }} 
-        />
-        <div className="absolute bottom-1/4 left-1/2 w-[350px] h-[350px] rounded-full" 
-             style={{ background: 'radial-gradient(circle, var(--color-primary) 0%, transparent 70%)', filter: 'blur(70px)', opacity: 0.22 }} 
-        />
-        <div className="absolute top-3/4 right-0 w-[250px] h-[250px] rounded-full" 
-             style={{ background: 'radial-gradient(circle, var(--color-accent) 0%, transparent 70%)', filter: 'blur(50px)', opacity: 0.2 }} 
-        />
-        
-        <div className="absolute inset-0 opacity-[0.02]" 
-          style={{ backgroundImage: 'radial-gradient(var(--color-accent) 1px, transparent 1px)', backgroundSize: '32px 32px' }} 
-        />
-        
-        <div className="absolute inset-0 z-5 pointer-events-none">
-          {particles.map((particle) => (
-            <div
-              key={particle.id}
-              className="absolute rounded-full"
-              style={{
-                left: `${particle.x}%`,
-                top: `${particle.y}%`,
-                width: particle.size,
-                height: particle.size,
-                background: `radial-gradient(circle, var(--color-accent) 0%, transparent 70%)`,
-                opacity: particle.opacity,
-                filter: 'blur(1px)',
-                transform: 'translateZ(0)',
-                animation: `particleFloat ${particle.duration}s ease-in-out infinite`,
-                animationDelay: `${particle.delay}s`,
-              }}
-            />
-          ))}
-        </div>
-        
-        <div 
-          className="absolute w-[400px] h-[400px] rounded-full pointer-events-none z-10"
-          style={{
-            left: `${mousePos.x}%`,
-            top: `${mousePos.y}%`,
-            transform: 'translate(-50%, -50%)',
-            background: 'radial-gradient(circle, var(--color-accent) 0%, transparent 60%)',
-            filter: 'blur(60px)',
-            opacity: 0.1,
-            transition: 'left 0.4s ease-out, top 0.4s ease-out',
-          }}
-        />
-      </div>
+      <GlowingOrbs
+        orbs={[
+          { top: '0', right: '0', width: '600px', height: '600px', color: 'primary', opacity: 0.35, blur: '100px' },
+          { top: '25%', left: '0', width: '400px', height: '400px', color: 'accent', opacity: 0.3, blur: '80px' },
+          { top: '50%', left: '33%', width: '300px', height: '300px', color: 'primary', opacity: 0.25, blur: '60px' },
+          { bottom: '0', right: '25%', width: '500px', height: '500px', color: 'accent', opacity: 0.28, blur: '90px' },
+          { bottom: '25%', left: '50%', width: '350px', height: '350px', color: 'primary', opacity: 0.22, blur: '70px' },
+          { top: '75%', right: '0', width: '250px', height: '250px', color: 'accent', opacity: 0.2, blur: '50px' },
+        ]}
+      />
+      <div className="absolute inset-0 opacity-[0.02]"
+        style={{ backgroundImage: 'radial-gradient(var(--color-accent) 1px, transparent 1px)', backgroundSize: '32px 32px' }}
+      />
+      <ParticleField particles={particles} animation="float" />
+      <MouseGlow mousePos={mousePos} size="400px" blur="60px" opacity={0.1} transition="left 0.4s ease-out, top 0.4s ease-out" />
 
-      <motion.div 
+      <motion.div
         style={{ y }}
         className="max-w-6xl mx-auto px-4 relative z-10"
       >
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
             className="text-center lg:text-left"
           >
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.5 }}
@@ -180,7 +87,7 @@ export function DownloadSection() {
               <span className="text-[var(--color-accent)] text-xs font-semibold tracking-widest uppercase">Disponible ahora</span>
             </motion.div>
 
-            <motion.h2 
+            <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.5 }}
@@ -191,7 +98,7 @@ export function DownloadSection() {
               <span className="text-[var(--color-accent)]">{t('download.titleSuffix')}</span>
             </motion.h2>
 
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.5 }}
@@ -201,7 +108,7 @@ export function DownloadSection() {
               {t('download.subtitle')}
             </motion.p>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.5 }}
@@ -223,7 +130,7 @@ export function DownloadSection() {
                   <div className="text-sm font-bold">App Store</div>
                 </div>
               </a>
-              
+
               <a
                 href="https://play.google.com"
                 target="_blank"
@@ -241,7 +148,7 @@ export function DownloadSection() {
               </a>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.5 }}
@@ -267,7 +174,7 @@ export function DownloadSection() {
             </motion.div>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.3, duration: 0.7, type: "spring" }}
@@ -276,13 +183,13 @@ export function DownloadSection() {
           >
             <div className="relative floating-phone">
               <div className="absolute inset-0 bg-[var(--color-accent)]/20 blur-[80px] rounded-full" />
-              <div className="relative z-10 w-72 md:w-80 lg:w-96 aspect-[9/19] rounded-[3rem] p-3" 
+              <div className="relative z-10 w-72 md:w-80 lg:w-96 aspect-[9/19] rounded-[3rem] p-3"
                    style={{ boxShadow: '0 0 80px -20px var(--color-accent)/30' }}>
                 <div className="w-full h-full rounded-[2.5rem] overflow-hidden border border-[var(--color-border)]">
                   <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-7 bg-[var(--color-background)] rounded-b-2xl z-30" />
-                  
+
                   <div className="w-full h-full p-5 pt-14 flex flex-col gap-4">
-                    <div className="h-32 rounded-2xl p-4 flex flex-col justify-between" 
+                    <div className="h-32 rounded-2xl p-4 flex flex-col justify-between"
                          style={{ background: 'radial-gradient(circle at 30% 30%, var(--color-primary) 0%, var(--color-surface) 100%)' }}>
                       <div className="text-xs text-white/60 font-medium">{t('download.mockup.balance')}</div>
                       <div className="text-3xl font-bold text-white">S/ 0.00</div>
@@ -322,7 +229,7 @@ export function DownloadSection() {
                       </div>
                     </div>
 
-                    <div className="h-12 rounded-xl flex items-center justify-center" 
+                    <div className="h-12 rounded-xl flex items-center justify-center"
                          style={{ background: 'radial-gradient(circle at 30% 30%, var(--color-accent) 0%, var(--color-primary) 100%)' }}>
                       <span className="text-[#050505] font-semibold text-sm">{t('download.mockup.newIncome')}</span>
                     </div>
@@ -332,14 +239,14 @@ export function DownloadSection() {
               </div>
             </div>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.5 }}
               viewport={{ once: true }}
               className="absolute -right-4 md:right-0 top-1/4 hidden md:block"
             >
-              <MockupCard 
+              <MockupCard
                 title={t('download.mockup.invoiceCreated')}
                 subtitle={t('download.mockup.sunatAccepted')}
                 icon={({ className, strokeWidth }) => (
@@ -350,14 +257,14 @@ export function DownloadSection() {
               />
             </motion.div>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: -20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7, duration: 0.5 }}
               viewport={{ once: true }}
               className="absolute -left-4 md:left-0 bottom-1/4 hidden md:block"
             >
-              <MockupCard 
+              <MockupCard
                 title={t('download.mockup.amountAdded')}
                 subtitle={t('download.mockup.incomeRegistered')}
                 icon={({ className, strokeWidth }) => (

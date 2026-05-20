@@ -1,19 +1,14 @@
-import { useState, useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   FileText, BarChart3, CreditCard, Shield, PieChart, Smartphone,
   ScanLine, Wallet, Target, TrendingUp, ArrowUpRight, PiggyBank,
 } from 'lucide-react';
-
-interface Particle {
-  id: number;
-  x: number;
-  y: number;
-  size: number;
-  duration: number;
-  delay: number;
-  opacity: number;
-}
+import { useParticles } from '../../hooks/useParticles';
+import { useMousePosition } from '../../hooks/useMousePosition';
+import { GlowingOrbs } from '../ui/GlowingOrbs';
+import { ParticleField } from '../ui/ParticleField';
+import { MouseGlow } from '../ui/MouseGlow';
 
 function BentoCard({ children, className = '', style }: {
   children: React.ReactNode; className?: string; style?: React.CSSProperties;
@@ -67,75 +62,25 @@ function BentoLight({ icon: Icon, title, desc, colRow }: {
 
 export function AppPreviewSection() {
   const { t } = useTranslation();
-  const [particles, setParticles] = useState<Particle[]>([]);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const newParticles: Particle[] = [];
-    for (let i = 0; i < 60; i++) {
-      newParticles.push({
-        id: i, x: Math.random() * 100, y: Math.random() * 100,
-        size: Math.random() * 3 + 1, duration: Math.random() * 6 + 4,
-        delay: Math.random() * 4, opacity: Math.random() * 0.3 + 0.08,
-      });
-    }
-    setParticles(newParticles);
-  }, []);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (sectionRef.current) {
-        const rect = sectionRef.current.getBoundingClientRect();
-        setMousePos({
-          x: ((e.clientX - rect.left) / rect.width) * 100,
-          y: ((e.clientY - rect.top) / rect.height) * 100,
-        });
-      }
-    };
-    const section = sectionRef.current;
-    if (section) section.addEventListener('mousemove', handleMouseMove);
-    return () => { if (section) section.removeEventListener('mousemove', handleMouseMove); };
-  }, []);
+  const particles = useParticles(60, { minOpacity: 0.08, maxOpacity: 0.3, minSize: 1, maxSize: 3 });
+  const mousePos = useMousePosition(sectionRef);
 
   return (
     <section ref={sectionRef} id="app-preview" className="relative overflow-hidden py-16 md:py-20" style={{ background: 'oklch(94% 0.015 250)' }}>
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-20 -right-20 w-[400px] h-[400px] rounded-full"
-             style={{ background: 'radial-gradient(circle, var(--color-primary) 0%, transparent 70%)', filter: 'blur(80px)', opacity: 0.12 }}
-        />
-        <div className="absolute -top-10 -left-32 w-[350px] h-[350px] rounded-full"
-             style={{ background: 'radial-gradient(circle, var(--color-accent) 0%, transparent 70%)', filter: 'blur(60px)', opacity: 0.1 }}
-        />
-        <div className="absolute bottom-20 -left-20 w-[300px] h-[300px] rounded-full"
-             style={{ background: 'radial-gradient(circle, var(--color-primary) 0%, transparent 70%)', filter: 'blur(70px)', opacity: 0.08 }}
-        />
-        <div className="absolute -bottom-10 right-1/4 w-[200px] h-[200px] rounded-full"
-             style={{ background: 'radial-gradient(circle, var(--color-accent) 0%, transparent 70%)', filter: 'blur(40px)', opacity: 0.06 }}
-        />
-        <div className="absolute inset-0 opacity-[0.02]"
-             style={{ backgroundImage: 'radial-gradient(var(--color-primary) 1px, transparent 1px)', backgroundSize: '32px 32px' }}
-        />
-        <div className="absolute inset-0 z-5">
-          {particles.map((p) => (
-            <div key={p.id} className="absolute rounded-full" style={{
-              left: `${p.x}%`, top: `${p.y}%`,
-              width: p.size, height: p.size,
-              background: 'radial-gradient(circle, var(--color-primary) 0%, transparent 70%)',
-              opacity: p.opacity, filter: 'blur(0.5px)',
-              animation: `particleBlink ${p.duration}s ease-in-out infinite`,
-              animationDelay: `${p.delay}s`,
-            }} />
-          ))}
-        </div>
-        <div className="absolute w-[250px] h-[250px] rounded-full pointer-events-none z-10" style={{
-          left: `${mousePos.x}%`, top: `${mousePos.y}%`,
-          transform: 'translate(-50%, -50%)',
-          background: 'radial-gradient(circle, var(--color-primary) 0%, transparent 60%)',
-          filter: 'blur(50px)', opacity: 0.06,
-          transition: 'left 0.3s ease-out, top 0.3s ease-out',
-        }} />
-      </div>
+      <GlowingOrbs
+        orbs={[
+          { top: '-20px', right: '-20px', width: '400px', height: '400px', color: 'primary', opacity: 0.12, blur: '80px' },
+          { top: '-10px', left: '-128px', width: '350px', height: '350px', color: 'accent', opacity: 0.1, blur: '60px' },
+          { bottom: '80px', left: '-80px', width: '300px', height: '300px', color: 'primary', opacity: 0.08, blur: '70px' },
+          { bottom: '-40px', right: '25%', width: '200px', height: '200px', color: 'accent', opacity: 0.06, blur: '40px' },
+        ]}
+      />
+      <div className="absolute inset-0 opacity-[0.02]"
+           style={{ backgroundImage: 'radial-gradient(var(--color-primary) 1px, transparent 1px)', backgroundSize: '32px 32px' }}
+      />
+      <ParticleField particles={particles} color="var(--color-primary)" />
+      <MouseGlow mousePos={mousePos} size="250px" color="var(--color-primary)" blur="50px" opacity={0.06} />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6">
         <div className="text-center mb-10">
@@ -164,66 +109,16 @@ export function AppPreviewSection() {
             colRow="col-span-1 row-span-1 md:col-span-1 md:row-span-2"
           />
 
-          <BentoLight
-            icon={ScanLine}
-            title={t('appPreview.screenshots.camera')}
-            colRow="col-span-1 row-span-1 md:col-span-1 md:row-span-1"
-          />
-
-          <BentoLight
-            icon={FileText}
-            title={t('appPreview.screenshots.invoices')}
-            colRow="col-span-1 row-span-1 md:col-span-1 md:row-span-1"
-          />
-
-          <BentoLight
-            icon={PieChart}
-            title={t('appPreview.screenshots.reports')}
-            colRow="col-span-1 row-span-1 md:col-span-1 md:row-span-1"
-          />
-
-          <BentoLight
-            icon={CreditCard}
-            title={t('appPreview.screenshots.expenses')}
-            colRow="col-span-1 row-span-1 md:col-span-1 md:row-span-1"
-          />
-
-          <BentoLight
-            icon={Wallet}
-            title={t('appPreview.items.budget')}
-            colRow="col-span-1 row-span-1 md:col-span-1 md:row-span-1"
-          />
-
-          <BentoLight
-            icon={Target}
-            title={t('appPreview.items.goals')}
-            colRow="col-span-1 row-span-1 md:col-span-1 md:row-span-1"
-          />
-
-          <BentoLight
-            icon={TrendingUp}
-            title={t('appPreview.items.analytics')}
-            colRow="col-span-1 row-span-1 md:col-span-1 md:row-span-1"
-          />
-
-          <BentoLight
-            icon={ArrowUpRight}
-            title={t('appPreview.items.transfers')}
-            colRow="col-span-1 row-span-1 md:col-span-1 md:row-span-1"
-          />
-
-          <BentoLight
-            icon={PiggyBank}
-            title={t('appPreview.items.savings')}
-            colRow="col-span-1 row-span-1 md:col-span-1 md:row-span-1"
-          />
-
-          <BentoLight
-            icon={Smartphone}
-            title={t('appPreview.items.mobileApp')}
-            desc={t('appPreview.items.bankWithYou')}
-            colRow="col-span-2 row-span-1 md:col-span-1 md:row-span-1"
-          />
+          <BentoLight icon={ScanLine} title={t('appPreview.screenshots.camera')} colRow="col-span-1 row-span-1 md:col-span-1 md:row-span-1" />
+          <BentoLight icon={FileText} title={t('appPreview.screenshots.invoices')} colRow="col-span-1 row-span-1 md:col-span-1 md:row-span-1" />
+          <BentoLight icon={PieChart} title={t('appPreview.screenshots.reports')} colRow="col-span-1 row-span-1 md:col-span-1 md:row-span-1" />
+          <BentoLight icon={CreditCard} title={t('appPreview.screenshots.expenses')} colRow="col-span-1 row-span-1 md:col-span-1 md:row-span-1" />
+          <BentoLight icon={Wallet} title={t('appPreview.items.budget')} colRow="col-span-1 row-span-1 md:col-span-1 md:row-span-1" />
+          <BentoLight icon={Target} title={t('appPreview.items.goals')} colRow="col-span-1 row-span-1 md:col-span-1 md:row-span-1" />
+          <BentoLight icon={TrendingUp} title={t('appPreview.items.analytics')} colRow="col-span-1 row-span-1 md:col-span-1 md:row-span-1" />
+          <BentoLight icon={ArrowUpRight} title={t('appPreview.items.transfers')} colRow="col-span-1 row-span-1 md:col-span-1 md:row-span-1" />
+          <BentoLight icon={PiggyBank} title={t('appPreview.items.savings')} colRow="col-span-1 row-span-1 md:col-span-1 md:row-span-1" />
+          <BentoLight icon={Smartphone} title={t('appPreview.items.mobileApp')} desc={t('appPreview.items.bankWithYou')} colRow="col-span-2 row-span-1 md:col-span-1 md:row-span-1" />
         </div>
       </div>
     </section>

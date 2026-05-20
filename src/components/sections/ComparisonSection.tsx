@@ -1,16 +1,11 @@
-import { useState, useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Monitor, MapPin, Clock, Camera, Smartphone, CheckCircle, X } from 'lucide-react';
-
-interface Particle {
-  id: number;
-  x: number;
-  y: number;
-  size: number;
-  duration: number;
-  delay: number;
-  opacity: number;
-}
+import { useParticles } from '../../hooks/useParticles';
+import { useMousePosition } from '../../hooks/useMousePosition';
+import { GlowingOrbs } from '../ui/GlowingOrbs';
+import { ParticleField } from '../ui/ParticleField';
+import { MouseGlow } from '../ui/MouseGlow';
 
 const comparisonRows = [
   { key: 'device', icon: Monitor },
@@ -23,81 +18,27 @@ const comparisonRows = [
 
 export function ComparisonSection() {
   const { t } = useTranslation();
-  const [particles, setParticles] = useState<Particle[]>([]);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const newParticles: Particle[] = [];
-    for (let i = 0; i < 80; i++) {
-      newParticles.push({
-        id: i,
-        x: Math.random() * 100,
-        y: Math.random() * 100,
-        size: Math.random() * 3 + 1,
-        duration: Math.random() * 6 + 4,
-        delay: Math.random() * 4,
-        opacity: Math.random() * 0.4 + 0.15,
-      });
-    }
-    setParticles(newParticles);
-  }, []);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (sectionRef.current) {
-        const rect = sectionRef.current.getBoundingClientRect();
-        setMousePos({
-          x: ((e.clientX - rect.left) / rect.width) * 100,
-          y: ((e.clientY - rect.top) / rect.height) * 100,
-        });
-      }
-    };
-    const section = sectionRef.current;
-    if (section) section.addEventListener('mousemove', handleMouseMove);
-    return () => { if (section) section.removeEventListener('mousemove', handleMouseMove); };
-  }, []);
+  const particles = useParticles(80, { minOpacity: 0.15, maxOpacity: 0.4, minSize: 1, maxSize: 3 });
+  const mousePos = useMousePosition(sectionRef);
 
   return (
     <section ref={sectionRef} id="comparison" className="bg-black relative overflow-hidden py-16 md:py-20">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-20 -right-20 w-[500px] h-[500px] rounded-full"
-             style={{ background: 'radial-gradient(circle, var(--color-primary) 0%, transparent 70%)', filter: 'blur(80px)', opacity: 0.35 }}
-        />
-        <div className="absolute -top-10 -left-32 w-[400px] h-[400px] rounded-full"
-             style={{ background: 'radial-gradient(circle, var(--color-accent) 0%, transparent 70%)', filter: 'blur(60px)', opacity: 0.3 }}
-        />
-        <div className="absolute bottom-20 -left-20 w-[350px] h-[350px] rounded-full"
-             style={{ background: 'radial-gradient(circle, var(--color-accent) 0%, transparent 70%)', filter: 'blur(70px)', opacity: 0.2 }}
-        />
-        <div className="absolute -bottom-10 right-1/4 w-[200px] h-[200px] rounded-full"
-             style={{ background: 'radial-gradient(circle, var(--color-primary) 0%, transparent 70%)', filter: 'blur(40px)', opacity: 0.15 }}
-        />
-        <div className="absolute inset-0 bg-black/60" />
-        <div className="absolute inset-0 opacity-[0.03]"
-             style={{ backgroundImage: 'radial-gradient(var(--color-accent) 1px, transparent 1px)', backgroundSize: '32px 32px' }}
-        />
-        <div className="absolute inset-0 z-5">
-          {particles.map((particle) => (
-            <div key={particle.id} className="absolute rounded-full" style={{
-              left: `${particle.x}%`, top: `${particle.y}%`,
-              width: particle.size, height: particle.size,
-              background: 'radial-gradient(circle, var(--color-accent) 0%, transparent 70%)',
-              opacity: particle.opacity, filter: 'blur(1px)',
-              transform: 'translateZ(0)',
-              animation: `particleBlink ${particle.duration}s ease-in-out infinite`,
-              animationDelay: `${particle.delay}s`,
-            }} />
-          ))}
-        </div>
-        <div className="absolute w-[300px] h-[300px] rounded-full pointer-events-none z-10" style={{
-          left: `${mousePos.x}%`, top: `${mousePos.y}%`,
-          transform: 'translate(-50%, -50%)',
-          background: 'radial-gradient(circle, var(--color-accent) 0%, transparent 60%)',
-          filter: 'blur(40px)', opacity: 0.12,
-          transition: 'left 0.3s ease-out, top 0.3s ease-out',
-        }} />
-      </div>
+      <GlowingOrbs
+        orbs={[
+          { top: '-20px', right: '-20px', width: '500px', height: '500px', color: 'primary', opacity: 0.35, blur: '80px' },
+          { top: '-10px', left: '-128px', width: '400px', height: '400px', color: 'accent', opacity: 0.3, blur: '60px' },
+          { bottom: '80px', left: '-80px', width: '350px', height: '350px', color: 'accent', opacity: 0.2, blur: '70px' },
+          { bottom: '-40px', right: '25%', width: '200px', height: '200px', color: 'primary', opacity: 0.15, blur: '40px' },
+        ]}
+        overlay
+        overlayColor="rgba(0,0,0,0.6)"
+      />
+      <div className="absolute inset-0 opacity-[0.03]"
+           style={{ backgroundImage: 'radial-gradient(var(--color-accent) 1px, transparent 1px)', backgroundSize: '32px 32px' }}
+      />
+      <ParticleField particles={particles} />
+      <MouseGlow mousePos={mousePos} opacity={0.12} />
 
       <div className="relative z-10 max-w-4xl mx-auto px-4">
         <div className="text-center mb-12">
